@@ -6,20 +6,20 @@ using UnityEngine;
 public class Player : MonoBehaviour, IDataPersistence
 {
     public List<Dice> playerDices = new List<Dice>();
-    public GameObject dicePrefab;
-    public float throwForce = 0f;
-    public float dicesOffset = 2f;
-    public float holderRotationSpeed = 30f;
 
-    private int dicesOnHand = 0;
-
-    private Dictionary<string, string> facesDictionary = new Dictionary<string, string>();
-
-    public Transform diceHolder;
-
+    [SerializeField]
+    private float dicesOffset = 2f;
+    [SerializeField]
+    private GameObject dicePrefab;
+    [SerializeField]
+    private Transform diceHolder;
     [SerializeField]
     private List<string> PlayerDicesNames = new List<string>();
 
+    private float throwForce = 0f;
+    private int dicesOnHand = 0;
+    private Dictionary<string, string> facesDictionary = new Dictionary<string, string>();
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -29,9 +29,7 @@ public class Player : MonoBehaviour, IDataPersistence
     // Update is called once per frame
     void Update()
     {
-        
     }
-
 
     public void InstantiateAllPlayerDices()
     {
@@ -146,12 +144,6 @@ public class Player : MonoBehaviour, IDataPersistence
                 }
                 break;
         }
-    }
-
-    private Vector3 FindeSpawnPoint()
-    {
-        Vector3 randomPoint = Random.onUnitSphere * 2f  + diceHolder.transform.position;
-        return randomPoint;
     }
 
     private void GenerateDiceFaces(Dice dice)

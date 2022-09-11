@@ -5,37 +5,45 @@ using System.Linq;
 
 public class GameController : MonoBehaviour, IDataPersistence
 {
-    bool dicesRolled;
-    GameObject[] goDices;
-    public List<Dice> Dices = new List<Dice>();
-
+    private bool dicesRolled;
+    private bool dicesInMove;
+    // TODO fix empty objects in goDices and Dices ( now fixed by null sheckup in methods )
+    private GameObject[] goDices;
+    private List<Dice> Dices = new List<Dice>();
     private Player player;
     private Vector3 throwDirection;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
-
         dicesRolled = false;
-    //    FindeDices();
+        dicesInMove = false;
+        FindeDices();
     }
 
     public void InstantiatePlayerDices()
     {
-        player.InstantiateAllPlayerDices();
+        if (!dicesInMove)
+        {
+            dicesRolled = false;
+            player.InstantiateAllPlayerDices();
+            FindeDices();
+        }
     }
 
     public void ThrowPlayerDices()
     {
         player.ThrowDices(GetWorldPoint());
+        dicesInMove = true;
     }
 
     private void FindeDices()
     {
         goDices = null;
         goDices = GameObject.FindGameObjectsWithTag("PlayerDice");
-        Dices.Clear();
+        Dices = new List<Dice>();
         foreach (GameObject go in goDices)
         {
             Dices.Add(go.GetComponent<Dice>());
@@ -47,23 +55,13 @@ public class GameController : MonoBehaviour, IDataPersistence
     // Update is called once per frame
     void Update()
     {
-        //FindeDices();
-        /*StartCoroutine(DiceDelay());
-
-        if (checkZeroVelocity() && !dicesRolled)
-        {
-            foreach(Dice dice in Dices)
-            {
-                dice.setChoosedFace();
-                Debug.Log("Choosed number: " + dice.choosedFace.FaceIndex + ", type: " + dice.choosedFace.FaceName); ;
-            }
-
-            dicesRolled = true;
-        }*/
-
-        if(Input.GetMouseButtonDown(0) && GetWorldPoint() != Vector3.zero)
+        if (Input.GetMouseButtonDown(0) && GetWorldPoint() != Vector3.zero && !dicesInMove && !dicesRolled)
         {
             ThrowPlayerDices();
+        }
+        if(dicesInMove && !dicesRolled)
+        {
+            StartCoroutine(DicesRolling());
         }
     }
 
@@ -79,18 +77,35 @@ public class GameController : MonoBehaviour, IDataPersistence
         return worldPosition;
     }
 
-    IEnumerator DiceDelay()
+    IEnumerator DicesRolling()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1);
+        if (checkZeroVelocity() && !dicesRolled)
+        {
+            foreach (Dice dice in Dices)
+            {
+                if (dice != null)
+                {
+                    dice.setChoosedFace();
+                    dice.rolled = true;
+                }
+            }
+
+            dicesInMove = false;
+            dicesRolled = true;
+        }
     }
 
     bool checkZeroVelocity()
     {
-        foreach(Dice dice in Dices)
+        foreach (Dice dice in Dices)
         {
-            if(dice.rb.velocity != Vector3.zero)
+            if (dice != null)
             {
-                return false;
+                if (dice.rb.velocity != Vector3.zero)
+                {
+                    return false;
+                }
             }
         }
         return true;

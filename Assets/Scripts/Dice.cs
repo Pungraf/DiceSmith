@@ -24,6 +24,7 @@ public abstract class Dice : MonoBehaviour
     public Rigidbody rb;
     public DiceStatus diceStatus;
     public bool diceKinematic = true;
+    public bool rolled = false;
 
     public float choosedFaceHigh = float.MinValue;
     public Face choosedFace;

@@ -397,9 +397,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: ReleaseDices
+      - m_Target: {fileID: 2020197834}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: ClearDices
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3891359418764945967}
   m_Layer: 0
   m_Name: DiceScaled
-  m_TagString: PlayerDIce
+  m_TagString: PlayerDice
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,6 +111,7 @@ MonoBehaviour:
   FacesObjects: []
   rb: {fileID: 0}
   diceStatus: 2
+  diceKinematic: 1
   choosedFaceHigh: -3.4028235e+38
   choosedFace: {fileID: 0}
 --- !u!54 &-8784996062894706352

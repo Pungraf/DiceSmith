@@ -23,6 +23,7 @@ public class TwentyFace : Dice
     // Start is called before the first frame update
     void Start()
     {
+        rolled = false;
         posOffset = transform.position;
         degreesPerSecondX = RandomRotation();
         degreesPerSecondY = RandomRotation();

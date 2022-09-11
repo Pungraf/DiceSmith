@@ -6,25 +6,21 @@ using UnityEngine.UI;
 
 public class CraftController : MonoBehaviour, IDataPersistence
 {
-    public string activeDice = "";
+    [SerializeField]
+    private List<TMP_InputField> faceInputs = new List<TMP_InputField>(20);
+    [SerializeField]
+    private MoveAroundObject cameraTarget;
+    [SerializeField]
+    private GameObject dicePrefab;
 
-    public GameObject dicePrefab;
-
-    public Dice dice;
-    public List<GameObject> dices;
-    public List<TMP_InputField> faceInputs = new List<TMP_InputField>(20);
-
-    public MoveAroundObject cameraTarget;
+    private string activeDice = "";
+    private Dice dice;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         DataPersistenceManager.instance.LoadGame();
-        /*foreach(GameObject go in dices)
-        {
-            go.SetActive(false);
-        }*/
-        // InstantiateDice("20kOne");
     }
 
     // Update is called once per frame
@@ -32,6 +28,8 @@ public class CraftController : MonoBehaviour, IDataPersistence
     {
         
     }
+
+    // Spawn and populate saved faces in dice by name
     public void InstantiateDice(string diceName)
     {
         if(dice != null)
@@ -46,6 +44,7 @@ public class CraftController : MonoBehaviour, IDataPersistence
         GenerateDiceFaces();
         cameraTarget._target = goDice.transform;
     }
+
 
     void populateFaceNames(Dice dice)
     {
