@@ -9,7 +9,6 @@ public class GameController : MonoBehaviour, IDataPersistence
     private bool dicesInMove;
     // TODO fix empty objects in goDices and Dices ( now fixed by null sheckup in methods )
     private GameObject[] goDices;
-    [SerializeField]
     private List<string> dicesToReroll;
     private List<Dice> Dices = new List<Dice>();
     private Player player;
