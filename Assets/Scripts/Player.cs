@@ -31,6 +31,18 @@ public class Player : MonoBehaviour, IDataPersistence
     {
     }
 
+    public void InstantiateDicesToReroll(List<string> dicesToReroll)
+    {
+        dicesOnHand = 0;
+        foreach (string diceName in dicesToReroll)
+        {
+            InstantiatePlayerDice(diceName);
+            dicesOnHand++;
+        }
+
+        SetDicesPosition(dicesOnHand);
+    }
+
     public void InstantiateAllPlayerDices()
     {
         dicesOnHand = 0;
@@ -182,6 +194,10 @@ public class Player : MonoBehaviour, IDataPersistence
         }
         foreach(Dice dice in playerDices)
         {
+            if(dice.diceStatus != DiceStatus.InHand)
+            {
+                continue;
+            }
             Vector3 throwDirection = direction - dice.gameObject.transform.position;
             dice.rb.isKinematic = false;
             dice.diceKinematic = false;

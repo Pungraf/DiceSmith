@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour, IDataPersistence
     private bool dicesInMove;
     // TODO fix empty objects in goDices and Dices ( now fixed by null sheckup in methods )
     private GameObject[] goDices;
+    [SerializeField]
+    private List<string> dicesToReroll;
     private List<Dice> Dices = new List<Dice>();
     private Player player;
     private Vector3 throwDirection;
@@ -23,6 +25,25 @@ public class GameController : MonoBehaviour, IDataPersistence
         FindeDices();
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0) && GetWorldPoint() != Vector3.zero && !dicesInMove && !dicesRolled)
+        {
+            ThrowPlayerDices();
+        }
+
+        if (Input.GetMouseButtonDown(1) && GetWorldPoint() != Vector3.zero && !dicesInMove && dicesRolled)
+        {
+            addDiceToReroll();
+        }
+
+        if (dicesInMove && !dicesRolled)
+        {
+            StartCoroutine(DicesRolling());
+        }
+    }
+
     public void InstantiatePlayerDices()
     {
         if (!dicesInMove)
@@ -33,9 +54,20 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
     }
 
+    public void InstantiateDicesToReroll()
+    {
+        if (!dicesInMove)
+        {
+            dicesRolled = false;
+            player.InstantiateDicesToReroll(dicesToReroll);
+            FindeDices();
+        }
+    }
+
     public void ThrowPlayerDices()
     {
         player.ThrowDices(GetWorldPoint());
+        dicesToReroll.Clear();
         dicesInMove = true;
     }
 
@@ -50,18 +82,19 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
     }
 
-    
 
-    // Update is called once per frame
-    void Update()
+
+    public void addDiceToReroll()
     {
-        if (Input.GetMouseButtonDown(0) && GetWorldPoint() != Vector3.zero && !dicesInMove && !dicesRolled)
+        Dice dice = null;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hitData))
         {
-            ThrowPlayerDices();
-        }
-        if(dicesInMove && !dicesRolled)
-        {
-            StartCoroutine(DicesRolling());
+            dice = hitData.transform.gameObject.GetComponent<Dice>();
+            if(dice != null && !dicesToReroll.Exists(x => x == dice.name))
+            {
+                dicesToReroll.Add(dice.name);
+            }
         }
     }
 

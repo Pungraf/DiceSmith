@@ -399,7 +399,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2020197834}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: ClearDices
+        m_MethodName: InstantiateDicesToReroll
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -663,10 +663,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDices: []
-  dicePrefab: {fileID: 2287633033357492247, guid: 2d4e50b7279db6946ac3a9ccca1d78da, type: 3}
-  throwForce: 0
   dicesOffset: 2
-  holderRotationSpeed: 30
+  dicePrefab: {fileID: 2287633033357492247, guid: 2d4e50b7279db6946ac3a9ccca1d78da, type: 3}
   diceHolder: {fileID: 1344624249}
   PlayerDicesNames:
   - 20kOne
