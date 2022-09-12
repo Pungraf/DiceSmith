@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4fe79454d5de7749877ecf7cc7a604a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dices: []
+  resourcesMainPanel: {fileID: 0}
+  resourcesPanelPrefab: {fileID: 0}

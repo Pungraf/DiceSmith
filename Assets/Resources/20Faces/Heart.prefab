@@ -98,7 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FaceIndex: 0
+  tier: 3
   FaceName: Heart
+  type: Blood
 --- !u!1 &3804327625476304395
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,4 +198,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FaceIndex: 0
+  tier: 0
   FaceName: Heart
+  type: 

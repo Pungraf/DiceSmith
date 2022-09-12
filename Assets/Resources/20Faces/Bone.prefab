@@ -98,7 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FaceIndex: 0
+  tier: 2
   FaceName: Bone
+  type: Bone
 --- !u!1 &8618095587507262140
 GameObject:
   m_ObjectHideFlags: 0

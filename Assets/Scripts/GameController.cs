@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class GameController : MonoBehaviour, IDataPersistence
@@ -14,6 +16,13 @@ public class GameController : MonoBehaviour, IDataPersistence
     private Player player;
     private Vector3 throwDirection;
 
+    [SerializeField]
+    private RectTransform resourcesMainPanel;
+    [SerializeField]
+    private GameObject resourcesPanelPrefab;
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +31,13 @@ public class GameController : MonoBehaviour, IDataPersistence
         dicesRolled = false;
         dicesInMove = false;
         FindeDices();
+
+        foreach(string magicType in player.magicTypes)
+        {
+            GameObject panel =  Instantiate(resourcesPanelPrefab);
+            panel.transform.SetParent(resourcesMainPanel, false);
+            panel.name = magicType + "Panel";
+        }
     }
 
     // Update is called once per frame
@@ -37,11 +53,27 @@ public class GameController : MonoBehaviour, IDataPersistence
             addDiceToReroll();
         }
 
+        /*if (Input.GetKeyDown(KeyCode.P) && !dicesInMove)
+        {
+            PrototypeDeleteToken();
+        }*/
+
         if (dicesInMove && !dicesRolled)
         {
             StartCoroutine(DicesRolling());
         }
     }
+
+    /*private void PrototypeAddToken()
+    {
+        Instantiate(firstTierToken).transform.SetParent(panel, false);
+    }
+
+    private void PrototypeDeleteToken()
+    {
+        int numChildren = panel.transform.childCount;
+        Destroy(panel.transform.GetChild(numChildren - 1).gameObject);
+    }*/
 
     public void InstantiatePlayerDices()
     {
@@ -116,10 +148,41 @@ public class GameController : MonoBehaviour, IDataPersistence
         {
             foreach (Dice dice in Dices)
             {
+                string type = "";
+                int tier = 0;
                 if (dice != null)
                 {
                     dice.setChoosedFace();
                     dice.rolled = true;
+                    type = dice.choosedFace.type;
+                    tier = dice.choosedFace.tier;
+
+                    Transform panel = resourcesMainPanel.Find(type + "MagicPanel");
+                    if (panel != null)
+                    {
+
+                        Debug.Log(panel.gameObject.name);
+                        GameObject token;
+                        Transform tierPanel;
+                        switch (tier)
+                        {
+                            case 1:
+                                tierPanel = panel.Find("SingleResourceFirstTier");
+                                token = (GameObject)Instantiate(Resources.Load("UiTokens/" + type + tier));
+                                token.transform.SetParent(tierPanel, false);
+                                break;
+                            case 2:
+                                tierPanel = panel.Find("SingleResourceSecondTier");
+                                token = (GameObject)Instantiate(Resources.Load("UiTokens/" + type + tier));
+                                token.transform.SetParent(tierPanel, false);
+                                break;
+                            case 3:
+                                tierPanel = panel.Find("SingleResourceThirdTier");
+                                token = (GameObject)Instantiate(Resources.Load("UiTokens/" + type + tier));
+                                token.transform.SetParent(tierPanel, false);
+                                break;
+                        }
+                    }
                 }
             }
 

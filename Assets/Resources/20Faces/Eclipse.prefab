@@ -98,7 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FaceIndex: 0
+  tier: 1
   FaceName: Eclipse
+  type: Night
 --- !u!1 &7881046915411976886
 GameObject:
   m_ObjectHideFlags: 0

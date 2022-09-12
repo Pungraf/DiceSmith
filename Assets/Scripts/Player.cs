@@ -19,16 +19,49 @@ public class Player : MonoBehaviour, IDataPersistence
     private float throwForce = 0f;
     private int dicesOnHand = 0;
     private Dictionary<string, string> facesDictionary = new Dictionary<string, string>();
+    public List<string> magicTypes = new List<string>();
     
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        AssigneMagicTypes();
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    private void AssigneMagicTypes()
+    {
+        string type = "";
+        string magicType = "";
+        foreach (KeyValuePair<string, string> entry in facesDictionary)
+        {
+            type = entry.Value;
+            if (type == "Blood" || type == "Veins" || type == "Heart")
+            {
+                magicType = "BloodMagic";
+            }
+            else if(type == "Claw" || type == "Bone" || type == "Skull")
+            {
+                magicType = "BoneMagic";
+            }
+            else if (type == "Eclipse" || type == "Crescent" || type == "FullMoon")
+            {
+                magicType = "NightMagic";
+            }
+
+            if (magicTypes.Contains(magicType) || magicType == "")
+            {
+                continue;
+            }
+            else
+            {
+                magicTypes.Add(magicType);
+            }
+        }
     }
 
     public void InstantiateDicesToReroll(List<string> dicesToReroll)

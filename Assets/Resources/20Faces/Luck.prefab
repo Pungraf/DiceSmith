@@ -97,4 +97,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FaceIndex: 0
-  FaceName: 
+  tier: 0
+  FaceName: Luck
+  type: Misc
