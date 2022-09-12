@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour, IDataPersistence
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
+        dicesToReroll = new List<string>();
         dicesRolled = false;
         dicesInMove = false;
         FindeDices();
