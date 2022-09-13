@@ -7,7 +7,9 @@ using System.Linq;
 
 public class GameController : MonoBehaviour, IDataPersistence
 {
+    [SerializeField]
     private bool dicesRolled;
+    [SerializeField]
     private bool dicesInMove;
     // TODO fix empty objects in goDices and Dices ( now fixed by null sheckup in methods )
     private GameObject[] goDices;
@@ -15,6 +17,7 @@ public class GameController : MonoBehaviour, IDataPersistence
     private List<Dice> Dices = new List<Dice>();
     private Player player;
     private Vector3 throwDirection;
+    private Coroutine rollCoroutine;
 
     [SerializeField]
     private RectTransform resourcesMainPanel;
@@ -57,11 +60,6 @@ public class GameController : MonoBehaviour, IDataPersistence
         {
             PrototypeDeleteToken();
         }*/
-
-        if (dicesInMove && !dicesRolled)
-        {
-            StartCoroutine(DicesRolling());
-        }
     }
 
     /*private void PrototypeAddToken()
@@ -74,6 +72,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         int numChildren = panel.transform.childCount;
         Destroy(panel.transform.GetChild(numChildren - 1).gameObject);
     }*/
+
 
     public void InstantiatePlayerDices()
     {
@@ -98,6 +97,7 @@ public class GameController : MonoBehaviour, IDataPersistence
     public void ThrowPlayerDices()
     {
         player.ThrowDices(GetWorldPoint());
+        StartCoroutine(DicesRolling());
         dicesToReroll.Clear();
         dicesInMove = true;
     }
@@ -143,52 +143,56 @@ public class GameController : MonoBehaviour, IDataPersistence
 
     IEnumerator DicesRolling()
     {
+        // Need wait to begin any velocity 
         yield return new WaitForSeconds(1);
-        if (checkZeroVelocity() && !dicesRolled)
+        do
         {
-            foreach (Dice dice in Dices)
+            // yield break here to collect checkZeroVelocity(), used do while to make last checkup
+            yield return null;
+            if (checkZeroVelocity() && !dicesRolled)
             {
-                string type = "";
-                int tier = 0;
-                if (dice != null)
+                foreach (Dice dice in Dices)
                 {
-                    dice.setChoosedFace();
-                    dice.rolled = true;
-                    type = dice.choosedFace.type;
-                    tier = dice.choosedFace.tier;
-
-                    Transform panel = resourcesMainPanel.Find(type + "MagicPanel");
-                    if (panel != null)
+                    string type = "";
+                    int tier = 0;
+                    if (dice != null)
                     {
+                        dice.setChoosedFace();
+                        dice.rolled = true;
+                        type = dice.choosedFace.type;
+                        tier = dice.choosedFace.tier;
 
-                        Debug.Log(panel.gameObject.name);
-                        GameObject token;
-                        Transform tierPanel;
-                        switch (tier)
+                        Transform panel = resourcesMainPanel.Find(type + "MagicPanel");
+                        if (panel != null)
                         {
-                            case 1:
-                                tierPanel = panel.Find("SingleResourceFirstTier");
-                                token = (GameObject)Instantiate(Resources.Load("UiTokens/" + type + tier));
-                                token.transform.SetParent(tierPanel, false);
-                                break;
-                            case 2:
-                                tierPanel = panel.Find("SingleResourceSecondTier");
-                                token = (GameObject)Instantiate(Resources.Load("UiTokens/" + type + tier));
-                                token.transform.SetParent(tierPanel, false);
-                                break;
-                            case 3:
-                                tierPanel = panel.Find("SingleResourceThirdTier");
-                                token = (GameObject)Instantiate(Resources.Load("UiTokens/" + type + tier));
-                                token.transform.SetParent(tierPanel, false);
-                                break;
+                            GameObject token;
+                            Transform tierPanel;
+                            switch (tier)
+                            {
+                                case 1:
+                                    tierPanel = panel.Find("SingleResourceFirstTier");
+                                    token = (GameObject)Instantiate(Resources.Load("UiTokens/" + type + tier));
+                                    token.transform.SetParent(tierPanel, false);
+                                    break;
+                                case 2:
+                                    tierPanel = panel.Find("SingleResourceSecondTier");
+                                    token = (GameObject)Instantiate(Resources.Load("UiTokens/" + type + tier));
+                                    token.transform.SetParent(tierPanel, false);
+                                    break;
+                                case 3:
+                                    tierPanel = panel.Find("SingleResourceThirdTier");
+                                    token = (GameObject)Instantiate(Resources.Load("UiTokens/" + type + tier));
+                                    token.transform.SetParent(tierPanel, false);
+                                    break;
+                            }
                         }
                     }
                 }
+                dicesInMove = false;
+                dicesRolled = true;
+                yield break;
             }
-
-            dicesInMove = false;
-            dicesRolled = true;
-        }
+        } while (!checkZeroVelocity());
     }
 
     bool checkZeroVelocity()
