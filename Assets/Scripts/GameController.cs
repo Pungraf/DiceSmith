@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class GameController : MonoBehaviour, IDataPersistence
 {
@@ -13,6 +14,11 @@ public class GameController : MonoBehaviour, IDataPersistence
     private bool dicesInMove;
     [SerializeField]
     private int resourceCapacity;
+    [SerializeField]
+    private TMP_Text playerHealth;
+    [SerializeField]
+    private TMP_Text enemyrHealth;
+
     // TODO fix empty objects in goDices and Dices ( now fixed by null sheckup in methods )
     private GameObject[] goDices;
     private List<string> dicesToReroll;
@@ -43,6 +49,10 @@ public class GameController : MonoBehaviour, IDataPersistence
             panel.transform.SetParent(resourcesMainPanel, false);
             panel.name = magicType + "Panel";
         }
+
+        player.Health = 30;
+        playerHealth.text = player.Health.ToString();
+        enemyrHealth.text = 30.ToString();
     }
 
     // Update is called once per frame
@@ -141,6 +151,21 @@ public class GameController : MonoBehaviour, IDataPersistence
             worldPosition = hitData.point;
         }
         return worldPosition;
+    }
+
+    // Testing method
+    public void AttackPlayer(int damage)
+    {
+        player.Health -= damage;
+        playerHealth.text = player.Health.ToString();
+    }
+
+    // Testing method
+    public void AttackEnemy(int damage)
+    {
+        int enemyHP = Int32.Parse(enemyrHealth.text);
+        enemyHP -= damage;
+        enemyrHealth.text = enemyHP.ToString();
     }
 
     IEnumerator DicesRolling()

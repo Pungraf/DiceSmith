@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDataPersistence
+public class Player : Entity, IDataPersistence
 {
     public List<Dice> playerDices = new List<Dice>();
 
@@ -19,7 +19,7 @@ public class Player : MonoBehaviour, IDataPersistence
     private float throwForce = 0f;
     private int dicesOnHand = 0;
     private Dictionary<string, string> facesDictionary = new Dictionary<string, string>();
-
+    
     public List<string> magicTypes = new List<string>();
     public Dictionary<string, int> resourceDictionary = new Dictionary<string, int>();
 
