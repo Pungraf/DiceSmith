@@ -799,10 +799,6 @@ PrefabInstance:
       propertyPath: resourcesMainPanel
       value: 
       objectReference: {fileID: 1992863438}
-    - target: {fileID: 3578361109675463935, guid: e5ab8cbd434341a4c8f8f5edcd641612, type: 3}
-      propertyPath: resourcesPanelPrefab
-      value: 
-      objectReference: {fileID: 6342484760859135860, guid: 73ddf3e5aa2b0a44696ea8b336d00662, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5ab8cbd434341a4c8f8f5edcd641612, type: 3}
 --- !u!1 &1239605864
@@ -1594,7 +1590,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -200}
-  m_SizeDelta: {x: 400, y: 700}
+  m_SizeDelta: {x: 320, y: 650}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1992863439
 MonoBehaviour:
@@ -1611,13 +1607,13 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 20
+    m_Top: 15
     m_Bottom: 0
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 400, y: 200}
-  m_Spacing: {x: 0, y: 50}
+  m_CellSize: {x: 300, y: 200}
+  m_Spacing: {x: 0, y: 10}
   m_Constraint: 1
   m_ConstraintCount: 1
 --- !u!114 &1992863440

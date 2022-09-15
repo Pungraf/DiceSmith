@@ -19,18 +19,31 @@ public class Player : MonoBehaviour, IDataPersistence
     private float throwForce = 0f;
     private int dicesOnHand = 0;
     private Dictionary<string, string> facesDictionary = new Dictionary<string, string>();
+
     public List<string> magicTypes = new List<string>();
-    
+    public Dictionary<string, int> resourceDictionary = new Dictionary<string, int>();
+
     // Start is called before the first frame update
     void Start()
     {
 
         AssigneMagicTypes();
+        AssigneResources();
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    private void AssigneResources()
+    {
+        foreach (string type in magicTypes)
+        {
+            resourceDictionary.Add(type + "TierOne", 0);
+            resourceDictionary.Add(type + "TierTwo", 0);
+            resourceDictionary.Add(type + "TierThree", 0);
+        }
     }
 
     private void AssigneMagicTypes()
@@ -42,15 +55,15 @@ public class Player : MonoBehaviour, IDataPersistence
             type = entry.Value;
             if (type == "Blood" || type == "Veins" || type == "Heart")
             {
-                magicType = "BloodMagic";
+                magicType = "Blood";
             }
             else if(type == "Claw" || type == "Bone" || type == "Skull")
             {
-                magicType = "BoneMagic";
+                magicType = "Bone";
             }
             else if (type == "Eclipse" || type == "Crescent" || type == "FullMoon")
             {
-                magicType = "NightMagic";
+                magicType = "Night";
             }
 
             if (magicTypes.Contains(magicType) || magicType == "")
