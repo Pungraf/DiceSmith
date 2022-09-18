@@ -17,13 +17,14 @@ public class GameController : MonoBehaviour, IDataPersistence
     [SerializeField]
     private TMP_Text playerHealth;
     [SerializeField]
-    private TMP_Text enemyrHealth;
+    private TMP_Text enemyHealth;
 
     // TODO fix empty objects in goDices and Dices ( now fixed by null sheckup in methods )
     private GameObject[] goDices;
     private List<string> dicesToReroll;
     private List<Dice> Dices = new List<Dice>();
     private Player player;
+    private Enemy enemy;
     private Vector3 throwDirection;
     private Coroutine rollCoroutine;
 
@@ -38,6 +39,7 @@ public class GameController : MonoBehaviour, IDataPersistence
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
         dicesToReroll = new List<string>();
         dicesRolled = false;
         dicesInMove = false;
@@ -51,8 +53,9 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
 
         player.Health = 30;
+        enemy.Health = 30;
         playerHealth.text = player.Health.ToString();
-        enemyrHealth.text = 30.ToString();
+        enemyHealth.text = enemy.Health.ToString();
     }
 
     // Update is called once per frame
@@ -153,19 +156,19 @@ public class GameController : MonoBehaviour, IDataPersistence
         return worldPosition;
     }
 
-    // Testing method
-    public void AttackPlayer(int damage)
+    public void ExecuteAbility(Ability ability)
     {
-        player.Health -= damage;
-        playerHealth.text = player.Health.ToString();
+        foreach(Effect effect in ability.effects)
+        {
+            effect.Execute(enemy, player);
+        }
+        UpdateUI();
     }
 
-    // Testing method
-    public void AttackEnemy(int damage)
+    private void UpdateUI()
     {
-        int enemyHP = Int32.Parse(enemyrHealth.text);
-        enemyHP -= damage;
-        enemyrHealth.text = enemyHP.ToString();
+        playerHealth.text = player.Health.ToString();
+        enemyHealth.text = enemy.Health.ToString();
     }
 
     IEnumerator DicesRolling()

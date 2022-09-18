@@ -6,20 +6,18 @@ using System;
 
 public class Ability : MonoBehaviour
 {
-    private int damage;
-    private GameController gameController;
+    public List<Effect> effects = new List<Effect>();
 
-    [SerializeField]
-    private TMP_Text damageValue;
+    private GameController gameController;
 
     public void Start()
     {
         gameController = (GameController)FindObjectOfType(typeof(GameController));
-        damage = Int32.Parse(damageValue.text);
+        Debug.Log("Alive");
     }
 
     public void Cast()
     {
-        gameController.AttackEnemy(damage);
+        gameController.ExecuteAbility(this);
     }
 }
