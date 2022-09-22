@@ -13,8 +13,9 @@ public class BoneSpear : Ability
 
     public new void Start()
     {
-        base.Start();
+        costDictionary.Add(new Resource("Bone", 1), 1);
         effects.Add(new DealDamageEffect(damage));
         damageValue.text = damage.ToString();
+        base.Start();
     }
 }

@@ -50,7 +50,24 @@ public class GameController : MonoBehaviour, IDataPersistence
             GameObject panel =  Instantiate(resourcesPanelPrefab);
             panel.transform.SetParent(resourcesMainPanel, false);
             panel.name = magicType + "Panel";
+            Transform tierPanel;
+            GameObject token;
+
+            Transform transormPanel = panel.transform;
+
+            for (int i = 0; i < 3; i++)
+            {
+                int tier = i + 1;
+                tierPanel = transormPanel.Find("SingleResource" + tier + "Tier");
+                for(int j = 0; j < 5; j++)
+                {
+                    token = (GameObject)Instantiate(Resources.Load("UiTokens/" + magicType + tier));
+                    token.transform.SetParent(tierPanel, false);
+                    token.SetActive(false);
+                }
+            }
         }
+
 
         player.Health = 30;
         enemy.Health = 30;
@@ -71,22 +88,11 @@ public class GameController : MonoBehaviour, IDataPersistence
             addDiceToReroll();
         }
 
-        /*if (Input.GetKeyDown(KeyCode.P) && !dicesInMove)
+        if (Input.GetKeyDown(KeyCode.U))
         {
-            PrototypeDeleteToken();
-        }*/
+            UpdateUI();
+        }
     }
-
-    /*private void PrototypeAddToken()
-    {
-        Instantiate(firstTierToken).transform.SetParent(panel, false);
-    }
-
-    private void PrototypeDeleteToken()
-    {
-        int numChildren = panel.transform.childCount;
-        Destroy(panel.transform.GetChild(numChildren - 1).gameObject);
-    }*/
 
 
     public void InstantiatePlayerDices()
@@ -158,6 +164,26 @@ public class GameController : MonoBehaviour, IDataPersistence
 
     public void ExecuteAbility(Ability ability)
     {
+        foreach(KeyValuePair<Resource, int> token in ability.costDictionary)
+        {
+            if(player.resourceDictionary.TryGetValue(token.Key.type+"Tier" + token.Key.tier, out int value))
+            {
+                if(value < token.Value)
+                {
+                    Debug.Log("Not enough resource of selected type");
+                    return;
+                }
+                else
+                {
+                    player.resourceDictionary[token.Key.type + "Tier" + token.Key.tier] -= token.Value;
+                }
+            }
+            else
+            {
+                Debug.Log("No resource of selected type");
+                return;
+            }
+        }
         foreach(Effect effect in ability.effects)
         {
             effect.Execute(enemy, player);
@@ -169,6 +195,32 @@ public class GameController : MonoBehaviour, IDataPersistence
     {
         playerHealth.text = player.Health.ToString();
         enemyHealth.text = enemy.Health.ToString();
+
+        foreach(Transform panel in resourcesMainPanel)
+        {
+            string type = panel.gameObject.name.Replace("Panel","");
+            foreach (Transform resourcePanel in panel)
+            {
+                int tier = Int32.Parse(resourcePanel.gameObject.name.Replace("SingleResource", "").Replace("Tier", ""));
+                int tokensToActivate;
+                player.resourceDictionary.TryGetValue(type + "Tier" + tier, out tokensToActivate);
+                foreach (Transform resource in resourcePanel)
+                {
+                    resource.gameObject.SetActive(false);
+                }
+                for(int i = 0; i < tokensToActivate; i++)
+                {
+                    foreach (Transform resource in resourcePanel)
+                    {
+                        if (!resource.gameObject.activeSelf)
+                        {
+                            resource.gameObject.SetActive(true);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     IEnumerator DicesRolling()
@@ -198,56 +250,25 @@ public class GameController : MonoBehaviour, IDataPersistence
                             int points;
                             GameObject token;
                             Transform tierPanel;
-                            switch (tier)
+                            if(player.resourceDictionary.TryGetValue(type + "Tier" + tier, out points))
                             {
-                                case 1:
-                                    if(player.resourceDictionary.TryGetValue(type + "TierOne", out points))
+                                if(points < resourceCapacity)
+                                {
+                                    player.resourceDictionary[type + "Tier" + tier]++;
+                                    tierPanel = panel.Find("SingleResource" + tier + "Tier");
+                                    foreach(Transform child in tierPanel)
                                     {
-                                        if(points < resourceCapacity)
+                                        if(!child.gameObject.activeSelf)
                                         {
-                                            player.resourceDictionary[type + "TierOne"]++;
-                                            tierPanel = panel.Find("SingleResourceFirstTier");
-                                            token = (GameObject)Instantiate(Resources.Load("UiTokens/" + type + tier));
-                                            token.transform.SetParent(tierPanel, false);
+                                            child.gameObject.SetActive(true);
+                                            break;
                                         }
                                     }
-                                    else
-                                    {
-                                        Debug.LogError("Cannot finde proper player resource: " + type + "TierOne");
-                                    }
-                                    break;
-                                case 2:
-                                    if (player.resourceDictionary.TryGetValue(type + "TierTwo", out points))
-                                    {
-                                        if (points < resourceCapacity)
-                                        {
-                                            player.resourceDictionary[type + "TierTwo"]++;
-                                            tierPanel = panel.Find("SingleResourceSecondTier");
-                                            token = (GameObject)Instantiate(Resources.Load("UiTokens/" + type + tier));
-                                            token.transform.SetParent(tierPanel, false);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("Cannot finde proper player resource: " + type + "TierTwo");
-                                    }
-                                    break;
-                                case 3:
-                                    if (player.resourceDictionary.TryGetValue(type + "TierThree", out points))
-                                    {
-                                        if (points < resourceCapacity)
-                                        {
-                                            player.resourceDictionary[type + "TierThree"]++;
-                                            tierPanel = panel.Find("SingleResourceThirdTier");
-                                            token = (GameObject)Instantiate(Resources.Load("UiTokens/" + type + tier));
-                                            token.transform.SetParent(tierPanel, false);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("Cannot finde proper player resource: " + type + "TierThree");
-                                    }
-                                    break;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("Cannot finde proper player resource: " + type + "Tier " + tier);
                             }
                         }
                     }

@@ -40,9 +40,9 @@ public class Player : Entity, IDataPersistence
     {
         foreach (string type in magicTypes)
         {
-            resourceDictionary.Add(type + "TierOne", 0);
-            resourceDictionary.Add(type + "TierTwo", 0);
-            resourceDictionary.Add(type + "TierThree", 0);
+            resourceDictionary.Add(type + "Tier1", 0);
+            resourceDictionary.Add(type + "Tier2", 0);
+            resourceDictionary.Add(type + "Tier3", 0);
         }
     }
 
