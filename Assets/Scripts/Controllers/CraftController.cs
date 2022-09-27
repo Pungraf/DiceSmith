@@ -6,21 +6,32 @@ using UnityEngine.UI;
 
 public class CraftController : MonoBehaviour, IDataPersistence
 {
+    public static CraftController Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     [SerializeField]
     private List<TMP_InputField> faceInputs = new List<TMP_InputField>(20);
     [SerializeField]
     private MoveAroundObject cameraTarget;
     [SerializeField]
     private GameObject dicePrefab;
+    [SerializeField]
+    private Player player;
 
     private string activeDice = "";
     private Dice dice;
-    
+
+    public Inventory inventory;
 
     // Start is called before the first frame update
     void Start()
     {
         DataPersistenceManager.instance.LoadGame();
+        inventory = player.inventory;
     }
 
     // Update is called once per frame

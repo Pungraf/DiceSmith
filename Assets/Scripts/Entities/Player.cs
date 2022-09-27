@@ -15,18 +15,26 @@ public class Player : Entity, IDataPersistence
     private Transform diceHolder;
     [SerializeField]
     private List<string> PlayerDicesNames = new List<string>();
+    [SerializeField]
+    private UI_Inventory UI_Inventory;
 
     private float throwForce = 0f;
     private int dicesOnHand = 0;
     private Dictionary<string, string> facesDictionary = new Dictionary<string, string>();
-    
+
+    public Inventory inventory;
     public List<string> magicTypes = new List<string>();
     public Dictionary<string, int> resourceDictionary = new Dictionary<string, int>();
+
+    private void Awake()
+    {
+        inventory = new Inventory();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        UI_Inventory.SetInventory(inventory);
         AssigneMagicTypes();
         AssigneResources();
     }
@@ -34,6 +42,10 @@ public class Player : Entity, IDataPersistence
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            inventory.AddItem(new Item { itemType = Item.ItemType.Night2, amount = 1, isStackable = true });
+        }
     }
 
     private void AssigneResources()
