@@ -49,8 +49,6 @@ public class UI_Inventory : MonoBehaviour
             itemSlotRectTransform.GetComponent<Button_UI>().MouseRightClickFunc = () =>
             {
                 //On right click action
-                //Remove from inventory
-                inventory.RemoveItem(item);
             };
 
             Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();

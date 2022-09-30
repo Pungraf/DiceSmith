@@ -86,7 +86,6 @@ public class TwentyFace : Dice
     public override void GenerateFaces()
     {
         GameObject currentFace;
-        //Debug.Log(Faces.Count);
         foreach (Face face in FacesObjects)
         {
             Destroy(face.gameObject);

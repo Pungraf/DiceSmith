@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using CodeMonkey.Utils;
 
 public class UI_Item : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler {
 
@@ -29,6 +30,14 @@ public class UI_Item : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IE
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>();
         image = transform.Find("image").GetComponent<Image>();
+    }
+
+    private void Start()
+    {
+        rectTransform.GetComponent<Button_UI>().MouseRightClickFunc = () =>
+        {
+            CraftController.Instance.inventory.RemoveItem(item);
+        };
     }
 
     public void OnBeginDrag(PointerEventData eventData) {

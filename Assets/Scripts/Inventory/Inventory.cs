@@ -13,9 +13,9 @@ public class Inventory
     {
         itemList = new List<Item>();
 
-        AddItem(new Item { itemType = Item.ItemType.Bone1, amount = 1, isStackable = true});
-        AddItem(new Item { itemType = Item.ItemType.Night2, amount = 1, isStackable = true });
-        AddItem(new Item { itemType = Item.ItemType.Blood3, amount = 1, isStackable = true });
+        AddItem(new Item { itemType = Item.ItemType.Claw, amount = 1, isStackable = true});
+        AddItem(new Item { itemType = Item.ItemType.Crescent, amount = 1, isStackable = true});
+        AddItem(new Item { itemType = Item.ItemType.Heart, amount = 1, isStackable = true});
     }
 
     public void AddItem(Item item)
@@ -50,11 +50,8 @@ public class Inventory
             Item itemInInventory = null;
             foreach (Item inventoryItem in itemList)
             {
-                Debug.Log(inventoryItem.amount);
                 if (inventoryItem.itemType == item.itemType)
                 {
-                    Debug.Log(inventoryItem.amount);
-                    Debug.Log(item.amount);
                     inventoryItem.amount -= item.amount;
                     itemInInventory = inventoryItem;
                 }
@@ -74,5 +71,10 @@ public class Inventory
     public List<Item> GetItemList()
     {
         return itemList;
+    }
+
+    public void SetItemList(List<Item> _itemList)
+    {
+        itemList = _itemList;
     }
 }

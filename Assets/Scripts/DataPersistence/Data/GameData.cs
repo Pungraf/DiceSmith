@@ -7,9 +7,11 @@ using UnityEngine;
 public class GameData
 {
     public SerializableDictionary<string, string> dicesFaces;
+    public List<Item> itemList;
 
     public GameData()
     {
         dicesFaces = new SerializableDictionary<string, string>();
+        itemList = new List<Item>();
     }
 }

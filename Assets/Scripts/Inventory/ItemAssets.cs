@@ -11,6 +11,7 @@ public class ItemAssets : MonoBehaviour
         Instance = this;
     }
 
+    public Sprite EmptySprite;
     public Sprite Bone1Sprite;
     public Sprite Bone2Sprite;
     public Sprite Bone3Sprite;

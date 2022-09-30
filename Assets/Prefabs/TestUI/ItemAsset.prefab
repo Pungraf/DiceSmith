@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7540802324879574034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7540802324879574032}
+  - component: {fileID: 7540802324879574035}
+  m_Layer: 0
+  m_Name: ItemAsset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7540802324879574032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7540802324879574034}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7540802324879574035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7540802324879574034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5e8008486345d499674e9c5de5fb2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EmptySprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  Bone1Sprite: {fileID: 21300000, guid: 82af4acecd9f07a4ea2f90622baef2a2, type: 3}
+  Bone2Sprite: {fileID: 21300000, guid: 0a6270688cc54cb45aedd2c4f41a5158, type: 3}
+  Bone3Sprite: {fileID: 21300000, guid: 1674d25d2510fd040a74a0989d7a2423, type: 3}
+  Blood1Sprite: {fileID: 21300000, guid: 788c7da8f970e83458b61722eb65f877, type: 3}
+  Blood2Sprite: {fileID: 21300000, guid: 4e79ba3d0b1e16e40a4412bdaa608a8e, type: 3}
+  Blood3Sprite: {fileID: 21300000, guid: 987c8a61df00f9d489d6d839a4047d6a, type: 3}
+  Night1Sprite: {fileID: 21300000, guid: f6d4fb7ce82828947ba7de5cb4fffa1f, type: 3}
+  Night2Sprite: {fileID: 21300000, guid: 6a7a8db3122e7ed4485ccaeb7343aa8f, type: 3}
+  Night3Sprite: {fileID: 21300000, guid: 5b4d8173d1851974d912a7b2e3a53da9, type: 3}

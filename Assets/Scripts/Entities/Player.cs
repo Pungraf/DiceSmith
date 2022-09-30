@@ -34,7 +34,10 @@ public class Player : Entity, IDataPersistence
     // Start is called before the first frame update
     void Start()
     {
-        UI_Inventory.SetInventory(inventory);
+        if(UI_Inventory != null)
+        {
+            UI_Inventory.SetInventory(inventory);
+        }
         AssigneMagicTypes();
         AssigneResources();
     }
@@ -42,9 +45,45 @@ public class Player : Entity, IDataPersistence
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        // Spawning items for testing
+        //Nigh
+        if(!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.J))
         {
-            inventory.AddItem(new Item { itemType = Item.ItemType.Night2, amount = 1, isStackable = true });
+            inventory.AddItem(new Item { itemType = Item.ItemType.Eclipse, amount = 1, isStackable = true });
+        }
+        if (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.J))
+        {
+            inventory.AddItem(new Item { itemType = Item.ItemType.Crescent, amount = 1, isStackable = true });
+        }
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.J))
+        {
+            inventory.AddItem(new Item { itemType = Item.ItemType.FullMoon, amount = 1, isStackable = true });
+        }
+        //Blood
+        if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.K))
+        {
+            inventory.AddItem(new Item { itemType = Item.ItemType.Blood, amount = 1, isStackable = true });
+        }
+        if (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.K))
+        {
+            inventory.AddItem(new Item { itemType = Item.ItemType.Veins, amount = 1, isStackable = true });
+        }
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.K))
+        {
+            inventory.AddItem(new Item { itemType = Item.ItemType.Heart, amount = 1, isStackable = true });
+        }
+        //Bone
+        if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
+        {
+            inventory.AddItem(new Item { itemType = Item.ItemType.Claw, amount = 1, isStackable = true });
+        }
+        if (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
+        {
+            inventory.AddItem(new Item { itemType = Item.ItemType.Bone, amount = 1, isStackable = true });
+        }
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
+        {
+            inventory.AddItem(new Item { itemType = Item.ItemType.Skull, amount = 1, isStackable = true });
         }
     }
 
@@ -231,15 +270,16 @@ public class Player : Entity, IDataPersistence
     {
         dice.namesList.Clear();
         string faceName = "";
+
         for (int i = 0; i < 20; i++)
         {
-            if (facesDictionary.TryGetValue(dice.name + "Face_" + (i + 1), out faceName))
+            if (facesDictionary.TryGetValue(dice.name + "FaceSlot " + (i + 1), out faceName))
             {
                 dice.namesList.Add(faceName);
             }
             else
             {
-                dice.namesList.Add("");
+                dice.namesList.Add("Empty");
             }
         }
     }
@@ -279,11 +319,13 @@ public class Player : Entity, IDataPersistence
             }
             facesDictionary.Add(face.Key, face.Value);
         }
+
+        inventory.SetItemList(data.itemList);
     }
 
     public void SaveData(ref GameData data)
     {
-        //Nothing to save now
+        data.itemList = inventory.GetItemList();
     }
 }
 
