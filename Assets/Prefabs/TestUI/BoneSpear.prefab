@@ -411,7 +411,7 @@ MonoBehaviour:
   effects: []
   costPanel: {fileID: 0}
   damageValue: {fileID: 2236730363176568677}
-  damage: 2
+  damage: 5
 --- !u!1 &4621069482824069158
 GameObject:
   m_ObjectHideFlags: 0

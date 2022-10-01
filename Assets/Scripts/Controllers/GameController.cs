@@ -8,6 +8,9 @@ using System;
 
 public class GameController : MonoBehaviour, IDataPersistence
 {
+    public int rerolls;
+    public bool endTurn;
+
     [SerializeField]
     private bool dicesRolled;
     [SerializeField]
@@ -19,7 +22,7 @@ public class GameController : MonoBehaviour, IDataPersistence
     [SerializeField]
     private TMP_Text enemyHealth;
 
-    // TODO fix empty objects in goDices and Dices ( now fixed by null sheckup in methods )
+    // TODO fix empty objects in goDices and Dices ( now fixed by null checkup in methods )
     private GameObject[] goDices;
     private List<string> dicesToReroll;
     private List<Dice> Dices = new List<Dice>();
@@ -27,9 +30,15 @@ public class GameController : MonoBehaviour, IDataPersistence
     private Enemy enemy;
     private Vector3 throwDirection;
     private Coroutine rollCoroutine;
+    private bool onEncounter;
+    private bool playerTurn;
+    private bool rolled;
+    private bool resourcesAssigned;
 
     [SerializeField]
     private RectTransform resourcesMainPanel;
+    [SerializeField]
+    private RectTransform temporalResourcePanel;
     [SerializeField]
     private GameObject resourcesPanelPrefab;
 
@@ -73,27 +82,92 @@ public class GameController : MonoBehaviour, IDataPersistence
         enemy.Health = 30;
         playerHealth.text = player.Health.ToString();
         enemyHealth.text = enemy.Health.ToString();
+
+
+        StartCoroutine(Encounter());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GetWorldPoint() != Vector3.zero && !dicesInMove && !dicesRolled)
+        if(onEncounter && playerTurn)
         {
-            ThrowPlayerDices();
+            if (Input.GetMouseButtonDown(0) && GetWorldPoint() != Vector3.zero && !dicesInMove && !dicesRolled)
+            {
+                ThrowPlayerDices();
+            }
+
+            if (Input.GetMouseButtonDown(1) && GetWorldPoint() != Vector3.zero && !dicesInMove && dicesRolled)
+            {
+                addDiceToReroll();
+            }
         }
 
-        if (Input.GetMouseButtonDown(1) && GetWorldPoint() != Vector3.zero && !dicesInMove && dicesRolled)
+        if(player.Health <= 0 || enemy.Health <= 0)
         {
-            addDiceToReroll();
-        }
-
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            UpdateUI();
+            onEncounter = false;
         }
     }
 
+    public void FinishTurn()
+    {
+        if(!dicesRolled)
+        {
+            Debug.Log("Roll dices befor finishing turn");
+            return;
+        }
+        if(!resourcesAssigned)
+        {
+            AssigneResources();
+        }
+        ClearTemporalPanel();
+        playerTurn = false;
+
+        InstantiatePlayerDices();
+    }
+
+    public void AssigneResources()
+    {
+        if(dicesRolled)
+        {
+            rerolls = 0;
+            if (!resourcesAssigned)
+            {
+                AddResources();
+                resourcesAssigned = true;
+            }
+        }
+    }
+
+    private void ClearTemporalPanel()
+    {
+        foreach (Transform child in temporalResourcePanel)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+
+    /*public void InstantiatePlayerDices()
+    {
+        if(!playerTurn)
+        {
+            Debug.Log("Enemy turn, can't take this action");
+            return;
+        }
+        if(rerolls <= 0 || rolled)
+        {
+            Debug.Log("No more rolls avalaible for thin turn");
+            return;
+        }
+        rolled = true;
+        if (!dicesInMove)
+        {
+            dicesRolled = false;
+            player.InstantiateAllPlayerDices();
+            FindeDices();
+        }
+    }*/
 
     public void InstantiatePlayerDices()
     {
@@ -107,6 +181,21 @@ public class GameController : MonoBehaviour, IDataPersistence
 
     public void InstantiateDicesToReroll()
     {
+        if (!playerTurn)
+        {
+            Debug.Log("Enemy turn, can't take this action");
+            return;
+        }
+        if (dicesToReroll.Count == 0)
+        {
+            Debug.Log("No dies selected");
+            return;
+        }
+        if (rerolls <= 0)
+        {
+            Debug.Log("No more re-rolls avalaible for thin turn");
+            return;
+        }
         if (!dicesInMove)
         {
             dicesRolled = false;
@@ -120,6 +209,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         player.ThrowDices(GetWorldPoint());
         StartCoroutine(DicesRolling());
         dicesToReroll.Clear();
+        rerolls--;
         dicesInMove = true;
     }
 
@@ -223,6 +313,60 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
     }
 
+    IEnumerator Encounter()
+    {
+        rolled = false;
+        onEncounter = true;
+        playerTurn = true;
+        InstantiatePlayerDices();
+        while (onEncounter)
+        {
+            resourcesAssigned = false;
+            rolled = false;
+            rerolls = 3;
+
+            Debug.Log("Player Turn");
+            while (playerTurn)
+            {
+                if(endTurn)
+                {
+                    playerTurn = false;
+                }
+                yield return null;
+            }
+            resourcesAssigned = false;
+            rolled = false;
+            rerolls = 3;
+
+            Debug.Log("Enemy Turn");
+            while (!playerTurn)
+            {
+                yield return new WaitForSeconds(1);
+                Debug.Log("Enemy dealed damage");
+                enemy.DealDamage();
+                UpdateUI();
+                yield return new WaitForSeconds(2);
+                playerTurn = true;
+                yield return null;
+            }
+            yield return null;
+        }
+        if(player.Health <= 0 && enemy.Health <= 0)
+        {
+            Debug.Log("Encounter finished with Draw");
+        }
+        else if(enemy.Health <= 0)
+        {
+            Debug.Log("Encounter finished, Player Won");
+        }
+        else
+        {
+            Debug.Log("Encounter finished, Enemy Won");
+        }
+
+        yield break;
+    }
+
     IEnumerator DicesRolling()
     {
         // Need wait to begin any velocity 
@@ -233,51 +377,80 @@ public class GameController : MonoBehaviour, IDataPersistence
             yield return null;
             if (checkZeroVelocity() && !dicesRolled)
             {
-                foreach (Dice dice in Dices)
-                {
-                    string type = "";
-                    int tier = 0;
-                    if (dice != null)
-                    {
-                        dice.setChoosedFace();
-                        dice.rolled = true;
-                        type = dice.choosedFace.type;
-                        tier = dice.choosedFace.tier;
-
-                        Transform panel = resourcesMainPanel.Find(type + "Panel");
-                        if (panel != null)
-                        {
-                            int points;
-                            GameObject token;
-                            Transform tierPanel;
-                            if(player.resourceDictionary.TryGetValue(type + "Tier" + tier, out points))
-                            {
-                                if(points < resourceCapacity)
-                                {
-                                    player.resourceDictionary[type + "Tier" + tier]++;
-                                    tierPanel = panel.Find("SingleResource" + tier + "Tier");
-                                    foreach(Transform child in tierPanel)
-                                    {
-                                        if(!child.gameObject.activeSelf)
-                                        {
-                                            child.gameObject.SetActive(true);
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogError("Cannot finde proper player resource: " + type + "Tier " + tier);
-                            }
-                        }
-                    }
-                }
+                AddTemporalResources();
+                //AddResources();
                 dicesInMove = false;
                 dicesRolled = true;
                 yield break;
             }
         } while (!checkZeroVelocity());
+    }
+
+    private void AddTemporalResources()
+    {
+        ClearTemporalPanel();
+
+        foreach (Dice dice in Dices)
+        {
+            string type = "";
+            int tier = 0;
+            if (dice != null)
+            {
+                dice.setChoosedFace();
+                dice.rolled = true;
+                type = dice.choosedFace.type;
+                tier = dice.choosedFace.tier;
+
+                GameObject token = (GameObject)Resources.Load("UiTokens/" + type + tier);
+                if (token != null)
+                {
+                    token = Instantiate(token, temporalResourcePanel, false);
+                }
+            }
+        }
+    }
+
+    private void AddResources()
+    {
+        foreach (Dice dice in Dices)
+        {
+            string type = "";
+            int tier = 0;
+            if (dice != null)
+            {
+                dice.setChoosedFace();
+                dice.rolled = true;
+                type = dice.choosedFace.type;
+                tier = dice.choosedFace.tier;
+
+                Transform panel = resourcesMainPanel.Find(type + "Panel");
+                if (panel != null)
+                {
+                    int points;
+                    Transform tierPanel;
+                    if (player.resourceDictionary.TryGetValue(type + "Tier" + tier, out points))
+                    {
+                        if (points < resourceCapacity)
+                        {
+                            player.resourceDictionary[type + "Tier" + tier]++;
+                            tierPanel = panel.Find("SingleResource" + tier + "Tier");
+                            foreach (Transform child in tierPanel)
+                            {
+                                if (!child.gameObject.activeSelf)
+                                {
+                                    child.gameObject.SetActive(true);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("Cannot finde proper player resource: " + type + "Tier " + tier);
+                    }
+                }
+            }
+        }
     }
 
     bool checkZeroVelocity()
