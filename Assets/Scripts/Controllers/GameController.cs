@@ -21,6 +21,10 @@ public class GameController : MonoBehaviour, IDataPersistence
     private TMP_Text playerHealth;
     [SerializeField]
     private TMP_Text enemyHealth;
+    [SerializeField]
+    private Camera eyeCamera;
+    [SerializeField]
+    private GameObject eyeGo;
 
     // TODO fix empty objects in goDices and Dices ( now fixed by null checkup in methods )
     private GameObject[] goDices;
@@ -34,6 +38,15 @@ public class GameController : MonoBehaviour, IDataPersistence
     private bool playerTurn;
     private bool rolled;
     private bool resourcesAssigned;
+    private bool lookupMode;
+    private bool backToCameraOrigin;
+    private bool freeCameraMovement;
+    private Vector3 cameraTargetLocation;
+    private Vector3 cameraTargetRotation;
+    private float cameraSpeed = 5f;
+    private float cameraRotationSpeed = 5f;
+    private float xAxisCameraMovement;
+    private float zAxisCameraMovement;
 
     [SerializeField]
     private RectTransform resourcesMainPanel;
@@ -90,25 +103,51 @@ public class GameController : MonoBehaviour, IDataPersistence
     // Update is called once per frame
     void Update()
     {
+        if(lookupMode)
+        {
+            if (eyeCamera.transform.position == cameraTargetLocation)
+            {
+                freeCameraMovement = true;
+            }
+            if(!freeCameraMovement)
+            {
+                eyeCamera.transform.position = Vector3.MoveTowards(eyeCamera.transform.position, cameraTargetLocation, cameraSpeed * Time.deltaTime);
+                eyeCamera.transform.eulerAngles = Vector3.Lerp(eyeCamera.transform.eulerAngles, cameraTargetRotation, cameraRotationSpeed * Time.deltaTime);
+            }
+        }
+        if(backToCameraOrigin && eyeCamera.transform.position == cameraTargetLocation)
+        {
+            lookupMode = false;
+            backToCameraOrigin = false;
+        }
+
+        if(freeCameraMovement)
+        {
+            //Camera movement on Lookup
+        }
+
+        //Player input
         if(onEncounter && playerTurn)
         {
             if (Input.GetMouseButtonDown(0) && GetWorldPoint() != Vector3.zero && !dicesInMove && !dicesRolled)
             {
                 ThrowPlayerDices();
             }
-
+    
             if (Input.GetMouseButtonDown(1) && GetWorldPoint() != Vector3.zero && !dicesInMove && dicesRolled)
             {
                 addDiceToReroll();
             }
         }
 
+        //Check if encounter is finished
         if(player.Health <= 0 || enemy.Health <= 0)
         {
             onEncounter = false;
         }
     }
 
+    //Finish current turn
     public void FinishTurn()
     {
         if(!dicesRolled)
@@ -120,12 +159,14 @@ public class GameController : MonoBehaviour, IDataPersistence
         {
             AssigneResources();
         }
+        ExitLookupMode();
         ClearTemporalPanel();
         playerTurn = false;
 
         InstantiatePlayerDices();
     }
 
+    //Add resources to player
     public void AssigneResources()
     {
         if(dicesRolled)
@@ -133,12 +174,14 @@ public class GameController : MonoBehaviour, IDataPersistence
             rerolls = 0;
             if (!resourcesAssigned)
             {
+                ExitLookupMode();
                 AddResources();
                 resourcesAssigned = true;
             }
         }
     }
 
+    //Delete all resources from temporal panel
     private void ClearTemporalPanel()
     {
         foreach (Transform child in temporalResourcePanel)
@@ -147,28 +190,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
     }
 
-
-    /*public void InstantiatePlayerDices()
-    {
-        if(!playerTurn)
-        {
-            Debug.Log("Enemy turn, can't take this action");
-            return;
-        }
-        if(rerolls <= 0 || rolled)
-        {
-            Debug.Log("No more rolls avalaible for thin turn");
-            return;
-        }
-        rolled = true;
-        if (!dicesInMove)
-        {
-            dicesRolled = false;
-            player.InstantiateAllPlayerDices();
-            FindeDices();
-        }
-    }*/
-
+    //Instantiate all player's dices
     public void InstantiatePlayerDices()
     {
         if (!dicesInMove)
@@ -179,6 +201,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
     }
 
+    //Instantiate dices selected to re-roll
     public void InstantiateDicesToReroll()
     {
         if (!playerTurn)
@@ -198,12 +221,14 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
         if (!dicesInMove)
         {
+            ExitLookupMode();
             dicesRolled = false;
             player.InstantiateDicesToReroll(dicesToReroll);
             FindeDices();
         }
     }
 
+    //Throw dices from player hand to point inicated by mouse
     public void ThrowPlayerDices()
     {
         player.ThrowDices(GetWorldPoint());
@@ -213,6 +238,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         dicesInMove = true;
     }
 
+    //Finde dices existing in world with "PlayerDice" tag
     private void FindeDices()
     {
         goDices = null;
@@ -224,8 +250,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
     }
 
-
-
+    //Add selected dice to reroll
     public void addDiceToReroll()
     {
         Dice dice = null;
@@ -240,6 +265,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
     }
 
+    //Get posisition idicated by mouse in world
     public Vector3 GetWorldPoint()
     {
         Vector3 worldPosition = Vector3.zero;
@@ -252,6 +278,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         return worldPosition;
     }
 
+    //Use send ability
     public void ExecuteAbility(Ability ability)
     {
         foreach(KeyValuePair<Resource, int> token in ability.costDictionary)
@@ -281,6 +308,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         UpdateUI();
     }
 
+    //Refresh values in UI
     private void UpdateUI()
     {
         playerHealth.text = player.Health.ToString();
@@ -313,6 +341,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
     }
 
+    //Main logic of turn based encounter
     IEnumerator Encounter()
     {
         rolled = false;
@@ -367,6 +396,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         yield break;
     }
 
+    //Checking if dices stop rolling and assigne resources when stop
     IEnumerator DicesRolling()
     {
         // Need wait to begin any velocity 
@@ -377,8 +407,8 @@ public class GameController : MonoBehaviour, IDataPersistence
             yield return null;
             if (checkZeroVelocity() && !dicesRolled)
             {
+                EnterLookupMode();
                 AddTemporalResources();
-                //AddResources();
                 dicesInMove = false;
                 dicesRolled = true;
                 yield break;
@@ -386,6 +416,42 @@ public class GameController : MonoBehaviour, IDataPersistence
         } while (!checkZeroVelocity());
     }
 
+    //Set camera posiiton over dices, enable lookup mode
+    public void EnterLookupMode()
+    {
+        lookupMode = true;
+        int dices = 0;
+        float x = 0;
+        float z = 0;
+        foreach (GameObject dice in goDices)
+        {
+            if(dice != null)
+            {
+                dices++;
+                x += dice.transform.position.x;
+                z += dice.transform.position.z;
+            }
+        }
+
+        x /= dices;
+        z /= dices;
+
+        eyeCamera.transform.parent = null;
+        cameraTargetLocation = new Vector3(x, 13f, z);
+        cameraTargetRotation = new Vector3(90f, 0f, 0f);
+    }
+
+    //Set camera to origin, disable lookup mode
+    public void ExitLookupMode()
+    {
+        freeCameraMovement = false;
+        eyeCamera.transform.parent = eyeGo.transform;
+        cameraTargetLocation = eyeGo.transform.position;
+        cameraTargetRotation = eyeGo.transform.eulerAngles;
+        backToCameraOrigin = true;
+    }
+
+    //Add resources to temporal panel
     private void AddTemporalResources()
     {
         ClearTemporalPanel();
@@ -410,6 +476,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
     }
 
+    //Add resources to main resources panel
     private void AddResources()
     {
         foreach (Dice dice in Dices)
@@ -453,6 +520,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
     }
 
+    //Check if every dices stopped moving
     bool checkZeroVelocity()
     {
         foreach (Dice dice in Dices)
@@ -468,11 +536,13 @@ public class GameController : MonoBehaviour, IDataPersistence
         return true;
     }
 
+    //Load data from save file
     public void LoadData(GameData data)
     {
         //Nothing to load now
     }
 
+    //Save data to save file
     public void SaveData(ref GameData data)
     {
         //Nothing to save now

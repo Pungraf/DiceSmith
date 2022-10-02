@@ -1440,6 +1440,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 836268898, guid: c1200f45f9635b14cb58e5edaa52b02d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218786577151584729, guid: c1200f45f9635b14cb58e5edaa52b02d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7218786577797248908, guid: c1200f45f9635b14cb58e5edaa52b02d, type: 3}
       propertyPath: m_Enabled
       value: 0
