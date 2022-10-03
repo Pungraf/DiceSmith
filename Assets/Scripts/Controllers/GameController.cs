@@ -25,6 +25,10 @@ public class GameController : MonoBehaviour, IDataPersistence
     private Camera eyeCamera;
     [SerializeField]
     private GameObject eyeGo;
+    [SerializeField]
+    private Transform eyeCameraClampObject;
+    [SerializeField]
+    private float cameraClampValue;
 
     // TODO fix empty objects in goDices and Dices ( now fixed by null checkup in methods )
     private GameObject[] goDices;
@@ -47,6 +51,7 @@ public class GameController : MonoBehaviour, IDataPersistence
     private float cameraRotationSpeed = 5f;
     private float xAxisCameraMovement;
     private float zAxisCameraMovement;
+    
 
     [SerializeField]
     private RectTransform resourcesMainPanel;
@@ -123,7 +128,7 @@ public class GameController : MonoBehaviour, IDataPersistence
 
         if(freeCameraMovement)
         {
-            //Camera movement on Lookup
+            CameraLookupMovement();
         }
 
         //Player input
@@ -144,6 +149,27 @@ public class GameController : MonoBehaviour, IDataPersistence
         if(player.Health <= 0 || enemy.Health <= 0)
         {
             onEncounter = false;
+        }
+    }
+
+    //Camer movement during lookup mode
+    public void CameraLookupMovement()
+    {
+        if(Input.GetKey(KeyCode.W) && (eyeCamera.transform.position.z - eyeCameraClampObject.position.z) <= cameraClampValue)
+        {
+            eyeCamera.transform.Translate(Vector3.up * Time.deltaTime * cameraSpeed);
+        }
+        if (Input.GetKey(KeyCode.S) && (eyeCameraClampObject.position.z - eyeCamera.transform.position.z) <= cameraClampValue)
+        {
+            eyeCamera.transform.Translate(Vector3.down * Time.deltaTime * cameraSpeed);
+        }
+        if (Input.GetKey(KeyCode.A) && (eyeCameraClampObject.position.x - eyeCamera.transform.position.x) <= cameraClampValue)
+        {
+            eyeCamera.transform.Translate(Vector3.left * Time.deltaTime * cameraSpeed);
+        }
+        if (Input.GetKey(KeyCode.D) && (eyeCamera.transform.position.x - eyeCameraClampObject.position.x) <= cameraClampValue)
+        {
+            eyeCamera.transform.Translate(Vector3.right * Time.deltaTime * cameraSpeed);
         }
     }
 
