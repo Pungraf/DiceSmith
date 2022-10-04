@@ -139,7 +139,7 @@ public class GameController : MonoBehaviour, IDataPersistence
                 ThrowPlayerDices();
             }
     
-            if (Input.GetMouseButtonDown(1) && GetWorldPoint() != Vector3.zero && !dicesInMove && dicesRolled)
+            if (Input.GetMouseButtonDown(1) && GetWorldPoint() != Vector3.zero && !dicesInMove && dicesRolled && !endTurn)
             {
                 addDiceToReroll();
             }
@@ -277,6 +277,8 @@ public class GameController : MonoBehaviour, IDataPersistence
     }
 
     //Add selected dice to reroll
+
+
     public void addDiceToReroll()
     {
         Dice dice = null;
@@ -286,7 +288,13 @@ public class GameController : MonoBehaviour, IDataPersistence
             dice = hitData.transform.gameObject.GetComponent<Dice>();
             if(dice != null && !dicesToReroll.Exists(x => x == dice.name))
             {
+                dice.gameObject.layer = LayerMask.NameToLayer("Outline");
                 dicesToReroll.Add(dice.name);
+            }
+            else if(dice != null && dicesToReroll.Exists(x => x == dice.name))
+            {
+                dice.gameObject.layer = LayerMask.NameToLayer("No Outline");
+                dicesToReroll.Remove(dice.name);
             }
         }
     }

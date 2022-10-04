@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 1044937}
   - component: {fileID: 1044939}
   - component: {fileID: 1044938}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HealthNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -270,7 +271,7 @@ GameObject:
   - component: {fileID: 37533325}
   - component: {fileID: 37533324}
   - component: {fileID: 37533323}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: AssignResourcesButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +405,7 @@ GameObject:
   - component: {fileID: 96420250}
   - component: {fileID: 96420249}
   - component: {fileID: 96420251}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: AbilityPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,7 +506,7 @@ GameObject:
   - component: {fileID: 131986854}
   - component: {fileID: 131986856}
   - component: {fileID: 131986855}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -556,7 +557,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -640,7 +642,7 @@ GameObject:
   - component: {fileID: 199279794}
   - component: {fileID: 199279796}
   - component: {fileID: 199279795}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HealthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,7 +693,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -769,6 +772,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4912423179233038398, guid: 064d8f9530e490e4cb595b543ab12d75, type: 3}
   m_PrefabInstance: {fileID: 1402817694}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &242956028 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1732735280, guid: c1200f45f9635b14cb58e5edaa52b02d, type: 3}
+  m_PrefabInstance: {fileID: 7218786578491981729}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &318121052
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,7 +788,7 @@ GameObject:
   - component: {fileID: 318121053}
   - component: {fileID: 318121055}
   - component: {fileID: 318121054}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -854,7 +862,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 322742161}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Controllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -890,7 +898,7 @@ GameObject:
   - component: {fileID: 367613091}
   - component: {fileID: 367613090}
   - component: {fileID: 367613092}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: TemporalResourcePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -990,7 +998,7 @@ GameObject:
   - component: {fileID: 431721022}
   - component: {fileID: 431721024}
   - component: {fileID: 431721023}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1067,7 +1075,7 @@ GameObject:
   - component: {fileID: 739421765}
   - component: {fileID: 739421764}
   - component: {fileID: 739421763}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: RerollButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1248,6 +1256,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DiceTray
       objectReference: {fileID: 0}
+    - target: {fileID: 1865263852436379406, guid: cc21f0f7c2094da44a9e9cdedf34c4b8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc21f0f7c2094da44a9e9cdedf34c4b8, type: 3}
 --- !u!1 &912767611
@@ -1260,7 +1272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 912767612}
   - component: {fileID: 912767613}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: ThrowStrenghtSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1376,7 +1388,7 @@ GameObject:
   - component: {fileID: 979280086}
   - component: {fileID: 979280085}
   - component: {fileID: 979280084}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: EndTurnButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1509,7 +1521,7 @@ GameObject:
   - component: {fileID: 1067583728}
   - component: {fileID: 1067583727}
   - component: {fileID: 1067583726}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1575,6 +1587,10 @@ PrefabInstance:
     - target: {fileID: 3578361109675463932, guid: e5ab8cbd434341a4c8f8f5edcd641612, type: 3}
       propertyPath: m_Name
       value: GameController
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578361109675463932, guid: e5ab8cbd434341a4c8f8f5edcd641612, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3578361109675463934, guid: e5ab8cbd434341a4c8f8f5edcd641612, type: 3}
       propertyPath: m_RootOrder
@@ -1672,7 +1688,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1239605866}
   - component: {fileID: 1239605865}
-  m_Layer: 0
+  - component: {fileID: 1239605867}
+  m_Layer: 7
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1756,6 +1773,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1239605867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239605864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &1321545060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1767,7 +1804,7 @@ GameObject:
   - component: {fileID: 1321545061}
   - component: {fileID: 1321545063}
   - component: {fileID: 1321545062}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: PlayerHealthPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1845,7 +1882,7 @@ GameObject:
   - component: {fileID: 1351909080}
   - component: {fileID: 1351909082}
   - component: {fileID: 1351909081}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: EnemyHealthPane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1967,6 +2004,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DataPersistenceManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4912423179233038399, guid: 064d8f9530e490e4cb595b543ab12d75, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 064d8f9530e490e4cb595b543ab12d75, type: 3}
 --- !u!1 &1473881848
@@ -1978,7 +2019,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1473881849}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2041,7 +2082,7 @@ GameObject:
   - component: {fileID: 1513682521}
   - component: {fileID: 1513682523}
   - component: {fileID: 1513682522}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2118,7 +2159,7 @@ GameObject:
   - component: {fileID: 1540918066}
   - component: {fileID: 1540918065}
   - component: {fileID: 1540918064}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2225,7 +2266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1568618817}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2264,7 +2305,7 @@ GameObject:
   - component: {fileID: 1612932587}
   - component: {fileID: 1612932589}
   - component: {fileID: 1612932588}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2315,7 +2356,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -2399,7 +2441,7 @@ GameObject:
   - component: {fileID: 1672288554}
   - component: {fileID: 1672288556}
   - component: {fileID: 1672288555}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HealthNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2450,7 +2492,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -2528,6 +2571,23 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 1732735282, guid: c1200f45f9635b14cb58e5edaa52b02d, type: 3}
   m_PrefabInstance: {fileID: 7218786578491981729}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1732735283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242956028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 5162502530349f34f92b7413b483835d, type: 2}
 --- !u!1 &1733919586
 GameObject:
   m_ObjectHideFlags: 0
@@ -2539,7 +2599,7 @@ GameObject:
   - component: {fileID: 1733919587}
   - component: {fileID: 1733919589}
   - component: {fileID: 1733919588}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2592,7 +2652,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -2677,7 +2738,7 @@ GameObject:
   - component: {fileID: 1761230078}
   - component: {fileID: 1761230077}
   - component: {fileID: 1761230076}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2717,7 +2778,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2780,7 +2841,7 @@ GameObject:
   - component: {fileID: 1979024641}
   - component: {fileID: 1979024640}
   - component: {fileID: 1979024639}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -2889,7 +2950,7 @@ GameObject:
   - component: {fileID: 1992863441}
   - component: {fileID: 1992863440}
   - component: {fileID: 1992863439}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: ResourcesMainPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3005,7 +3066,7 @@ GameObject:
   - component: {fileID: 2050866826}
   - component: {fileID: 2050866828}
   - component: {fileID: 2050866827}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3143,7 +3204,7 @@ GameObject:
   - component: {fileID: 2069305935}
   - component: {fileID: 2069305934}
   - component: {fileID: 2069305933}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: ResummonButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3276,7 +3337,7 @@ GameObject:
   - component: {fileID: 2119233902}
   - component: {fileID: 2119233904}
   - component: {fileID: 2119233903}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HealthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3327,7 +3388,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -3412,14 +3474,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 836268898, guid: c1200f45f9635b14cb58e5edaa52b02d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732735280, guid: c1200f45f9635b14cb58e5edaa52b02d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1732735282, guid: c1200f45f9635b14cb58e5edaa52b02d, type: 3}
       propertyPath: orthographic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218786577151584729, guid: c1200f45f9635b14cb58e5edaa52b02d, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7218786577797248909, guid: c1200f45f9635b14cb58e5edaa52b02d, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7218786577797248909, guid: c1200f45f9635b14cb58e5edaa52b02d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218786577797248911, guid: c1200f45f9635b14cb58e5edaa52b02d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 7218786577797248913, guid: c1200f45f9635b14cb58e5edaa52b02d, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3545,9 +3627,41 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1169183571724328409, guid: 484e3c5328c517b40a386056266f6d02, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075543838295265314, guid: 484e3c5328c517b40a386056266f6d02, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2933509891541179019, guid: 484e3c5328c517b40a386056266f6d02, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3932285004754255276, guid: 484e3c5328c517b40a386056266f6d02, type: 3}
       propertyPath: m_Name
       value: BoneSpear
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932285004754255276, guid: 484e3c5328c517b40a386056266f6d02, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4621069482824069158, guid: 484e3c5328c517b40a386056266f6d02, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704737863745742142, guid: 484e3c5328c517b40a386056266f6d02, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5131076903056242082, guid: 484e3c5328c517b40a386056266f6d02, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412494206103287643, guid: 484e3c5328c517b40a386056266f6d02, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6747584398789787855, guid: 484e3c5328c517b40a386056266f6d02, type: 3}
       propertyPath: m_Pivot.x

@@ -162,6 +162,7 @@ public class Player : Entity, IDataPersistence
             playerDices.RemoveAll(item => item.name == dice.name);
         }
         GameObject goDice = Instantiate(dicePrefab);
+        goDice.layer = LayerMask.NameToLayer("No Outline");
         goDice.name = diceName;
         dice = goDice.GetComponent<Dice>();
         DataPersistenceManager.instance.LoadGame();
