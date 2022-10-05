@@ -97,10 +97,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa630b881ae791c4e9ec12c30e8abe41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkColor: {r: 0.5943396, g: 0.32925934, b: 0, a: 0}
+  shadowColor: {r: 0, g: 0, b: 0, a: 0}
+  colorTransitionSpeed: 1
   FaceIndex: 0
   tier: 3
   FaceName: FullMoon
   type: Night
+  blinking: 0
+  shadow: 0
 --- !u!1 &3267114246993562315
 GameObject:
   m_ObjectHideFlags: 0

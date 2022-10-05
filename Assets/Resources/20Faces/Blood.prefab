@@ -97,10 +97,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa630b881ae791c4e9ec12c30e8abe41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkColor: {r: 0.5943396, g: 0.32925934, b: 0, a: 0}
+  shadowColor: {r: 0, g: 0, b: 0, a: 0}
+  colorTransitionSpeed: 1
   FaceIndex: 0
   tier: 1
   FaceName: Blood
   type: Blood
+  blinking: 0
+  shadow: 0
 --- !u!1 &3504286846289601588
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +202,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa630b881ae791c4e9ec12c30e8abe41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkColor: {r: 0, g: 0, b: 0, a: 0}
+  shadowColor: {r: 0, g: 0, b: 0, a: 0}
+  colorTransitionSpeed: 0
   FaceIndex: 0
   tier: 0
   FaceName: Blood
   type: 
+  blinking: 0
+  shadow: 0

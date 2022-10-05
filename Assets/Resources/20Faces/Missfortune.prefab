@@ -96,5 +96,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa630b881ae791c4e9ec12c30e8abe41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkColor: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 0}
+  shadowColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 0}
+  colorTransitionSpeed: 1
   FaceIndex: 0
+  tier: 0
   FaceName: 
+  type: 
+  blinking: 0
+  shadow: 0

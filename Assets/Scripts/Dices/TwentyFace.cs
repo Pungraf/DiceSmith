@@ -121,10 +121,24 @@ public class TwentyFace : Dice
     {
         foreach (Face face in FacesObjects)
         {
-            if (face.gameObject.transform.position.y > choosedFaceHigh)
+            face.blinking = false;
+            face.shadow = false;
+            face.EndBlinking();
+            if (face.gameObject.transform.position.y >= choosedFaceHigh)
             {
                 choosedFace = face;
                 choosedFaceHigh = face.gameObject.transform.position.y;
+            }
+        }
+        foreach (Face face in FacesObjects)
+        {
+            if (choosedFace == face)
+            {
+                face.blinking = true;
+            }
+            else
+            {
+                face.shadow = true;
             }
         }
     }
