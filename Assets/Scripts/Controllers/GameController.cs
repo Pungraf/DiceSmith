@@ -471,7 +471,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         z /= dices;
 
         eyeCamera.transform.parent = null;
-        cameraTargetLocation = new Vector3(x, 13f, z);
+        cameraTargetLocation = new Vector3(x, 15f, z);
         cameraTargetRotation = new Vector3(90f, 0f, 0f);
     }
 

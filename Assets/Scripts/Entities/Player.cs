@@ -47,7 +47,7 @@ public class Player : Entity, IDataPersistence
     {
         // Spawning items for testing
         //Nigh
-        if(!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.J))
+        if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.J))
         {
             inventory.AddItem(new Item { itemType = Item.ItemType.Eclipse, amount = 1, isStackable = true });
         }
