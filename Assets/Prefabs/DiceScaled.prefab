@@ -102,8 +102,8 @@ MonoBehaviour:
   degreesPerSecondX: 0
   degreesPerSecondY: 0
   degreesPerSecondZ: 0
-  amplitude: 0.2
-  frequency: 0.5
+  amplitude: 0.001
+  frequency: 1
   posOffset: {x: 0, y: 0, z: 0}
   tempPos: {x: 0, y: 0, z: 0}
   namesList: []
@@ -112,6 +112,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   diceStatus: 2
   diceKinematic: 1
+  rolled: 0
   choosedFaceHigh: -3.4028235e+38
   choosedFace: {fileID: 0}
 --- !u!54 &-8784996062894706352

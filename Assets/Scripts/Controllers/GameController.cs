@@ -8,6 +8,14 @@ using System;
 
 public class GameController : MonoBehaviour, IDataPersistence
 {
+    public static GameController Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+
+    }
+
     public int rerolls;
     public bool endTurn;
 
@@ -136,7 +144,8 @@ public class GameController : MonoBehaviour, IDataPersistence
         {
             if (Input.GetMouseButtonDown(0) && GetWorldPoint() != Vector3.zero && !dicesInMove && !dicesRolled)
             {
-                ThrowPlayerDices();
+                player.animator.SetTrigger("Throw");
+                //ThrowPlayerDices();
             }
     
             if (Input.GetMouseButtonDown(1) && GetWorldPoint() != Vector3.zero && !dicesInMove && dicesRolled && !endTurn)
@@ -257,7 +266,8 @@ public class GameController : MonoBehaviour, IDataPersistence
     //Throw dices from player hand to point inicated by mouse
     public void ThrowPlayerDices()
     {
-        player.ThrowDices(GetWorldPoint());
+        player.playerThrowDirection = GetWorldPoint();
+        player.ThrowDices();
         StartCoroutine(DicesRolling());
         dicesToReroll.Clear();
         rerolls--;

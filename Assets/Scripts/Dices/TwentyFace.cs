@@ -77,6 +77,10 @@ public class TwentyFace : Dice
         transform.Rotate(new Vector3(Time.deltaTime * degreesPerSecondX, Time.deltaTime * degreesPerSecondY, Time.deltaTime * degreesPerSecondZ), Space.World);
 
         // Float up/down with a Sin()
+        if(this.transform.parent != null)
+        {
+            posOffset = this.transform.position;
+        }
         tempPos = posOffset;
         tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * frequency) * amplitude;
 

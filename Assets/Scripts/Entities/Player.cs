@@ -25,10 +25,13 @@ public class Player : Entity, IDataPersistence
     public Inventory inventory;
     public List<string> magicTypes = new List<string>();
     public Dictionary<string, int> resourceDictionary = new Dictionary<string, int>();
+    public Animator animator;
+    public Vector3 playerThrowDirection = new Vector3();
 
     private void Awake()
     {
         inventory = new Inventory();
+        animator = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -285,9 +288,14 @@ public class Player : Entity, IDataPersistence
         }
     }
 
-    public void ThrowDices(Vector3 direction)
+    public void AnimationThrowDice()
     {
-        if(direction == Vector3.positiveInfinity)
+        GameController.Instance.ThrowPlayerDices();
+    }
+
+    public void ThrowDices()
+    {
+        if(playerThrowDirection == Vector3.positiveInfinity)
         {
             return;
         }
@@ -297,11 +305,12 @@ public class Player : Entity, IDataPersistence
             {
                 continue;
             }
-            Vector3 throwDirection = direction - dice.gameObject.transform.position;
+            Vector3 throwDirection = playerThrowDirection - dice.gameObject.transform.position;
             dice.rb.isKinematic = false;
             dice.diceKinematic = false;
             dice.rb.AddForce(throwDirection.normalized * throwForce, ForceMode.Impulse);
             dice.diceStatus = DiceStatus.OnBoard;
+            diceHolder.DetachChildren();
         }
     }
 
