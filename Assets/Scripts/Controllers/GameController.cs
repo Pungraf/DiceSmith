@@ -145,7 +145,6 @@ public class GameController : MonoBehaviour, IDataPersistence
             if (Input.GetMouseButtonDown(0) && GetWorldPoint() != Vector3.zero && !dicesInMove && !dicesRolled)
             {
                 player.animator.SetTrigger("Throw");
-                //ThrowPlayerDices();
             }
     
             if (Input.GetMouseButtonDown(1) && GetWorldPoint() != Vector3.zero && !dicesInMove && dicesRolled && !endTurn)
@@ -345,7 +344,8 @@ public class GameController : MonoBehaviour, IDataPersistence
                 return;
             }
         }
-        foreach(Effect effect in ability.effects)
+        player.PlayAbilityVisuals(ability.animatioName, ability.VisualName, ability.target ? enemy.transform: null);
+        foreach (Effect effect in ability.effects)
         {
             effect.Execute(enemy, player);
         }

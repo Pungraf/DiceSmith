@@ -21,6 +21,9 @@ public class Player : Entity, IDataPersistence
     private float throwForce = 0f;
     private int dicesOnHand = 0;
     private Dictionary<string, string> facesDictionary = new Dictionary<string, string>();
+    private AbilityEffects abilityEffects;
+    private string actualAbilityVisualName;
+    private Transform actualAbilityVisualTarget;
 
     public Inventory inventory;
     public List<string> magicTypes = new List<string>();
@@ -32,6 +35,7 @@ public class Player : Entity, IDataPersistence
     {
         inventory = new Inventory();
         animator = GetComponent<Animator>();
+        abilityEffects = GetComponent<AbilityEffects>();
     }
 
     // Start is called before the first frame update
@@ -90,6 +94,22 @@ public class Player : Entity, IDataPersistence
         }
     }
 
+    public void PlayAbilityVisuals(string animationToPlay, string abilityVisualsName, Transform abilityVisualTarget = null)
+    {
+        animator.SetTrigger(animationToPlay);
+        actualAbilityVisualName = abilityVisualsName;
+        if(abilityVisualTarget != null)
+        {
+            actualAbilityVisualTarget = abilityVisualTarget;
+        }
+    }
+
+    public void SpawnVisualEffect()
+    {
+        abilityEffects.SpawnVisuals(actualAbilityVisualName, actualAbilityVisualTarget);
+    }
+
+    //Assigne tiers to resources
     private void AssigneResources()
     {
         foreach (string type in magicTypes)
@@ -100,6 +120,7 @@ public class Player : Entity, IDataPersistence
         }
     }
 
+    //Finde magic types used on current dices
     private void AssigneMagicTypes()
     {
         string type = "";
@@ -131,6 +152,7 @@ public class Player : Entity, IDataPersistence
         }
     }
 
+    //Instantiate selected dices
     public void InstantiateDicesToReroll(List<string> dicesToReroll)
     {
         dicesOnHand = 0;
@@ -143,6 +165,7 @@ public class Player : Entity, IDataPersistence
         SetDicesPosition(dicesOnHand);
     }
 
+    //Instantiate all dices
     public void InstantiateAllPlayerDices()
     {
         dicesOnHand = 0;
@@ -155,6 +178,7 @@ public class Player : Entity, IDataPersistence
         SetDicesPosition(dicesOnHand);
     }
 
+    //Instantiate dice by name
     private void InstantiatePlayerDice(string diceName)
     {
         Dice dice = null;
@@ -175,6 +199,7 @@ public class Player : Entity, IDataPersistence
         goDice.transform.SetParent(diceHolder);
     }
 
+    //Position dices based on number
     private void SetDicesPosition(int numberOfDices)
     {
         int diceNumber = 0;
@@ -259,6 +284,7 @@ public class Player : Entity, IDataPersistence
         }
     }
 
+    //Generate faces of selected dice
     private void GenerateDiceFaces(Dice dice)
     {
         if (dice is null)
@@ -270,6 +296,7 @@ public class Player : Entity, IDataPersistence
         dice.GenerateFaces();
     }
 
+    //Set names of faces in dice
     private void populateFaceNames(Dice dice)
     {
         dice.namesList.Clear();
@@ -288,11 +315,13 @@ public class Player : Entity, IDataPersistence
         }
     }
 
+    //Throw dice during animation
     public void AnimationThrowDice()
     {
         GameController.Instance.ThrowPlayerDices();
     }
 
+    //Throw dices in hand with given velocity
     public void ThrowDices()
     {
         if(playerThrowDirection == Vector3.positiveInfinity)
@@ -314,11 +343,13 @@ public class Player : Entity, IDataPersistence
         }
     }
 
+    //Assigne force value from UI
     public void SetForce(System.Single force)
     {
         throwForce = force;
     }
 
+    //Load saved data
     public void LoadData(GameData data)
     {
         foreach (KeyValuePair<string, string> face in data.dicesFaces)
@@ -333,6 +364,7 @@ public class Player : Entity, IDataPersistence
         inventory.SetItemList(data.itemList);
     }
 
+    //Save data
     public void SaveData(ref GameData data)
     {
         data.itemList = inventory.GetItemList();
