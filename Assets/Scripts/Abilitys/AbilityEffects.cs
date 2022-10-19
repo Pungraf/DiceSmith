@@ -26,11 +26,11 @@ public class AbilityEffects : MonoBehaviour
         GameObject abilityVisual;
         if (target == null)
         {
-            abilityVisual = (GameObject)Instantiate(Resources.Load("AbilityVisuals/" + visualsName), hand.position, Quaternion.identity);
+            abilityVisual = (GameObject)Instantiate(Resources.Load("AbilityVisuals/" + visualsName), hand.position, Quaternion.Euler(90f, 0f, 0f));
         }
         else
         {
-            abilityVisual = (GameObject)Instantiate(Resources.Load("AbilityVisuals/" + visualsName), hand.position, Quaternion.LookRotation(target.position));
+            abilityVisual = (GameObject)Instantiate(Resources.Load("AbilityVisuals/" + visualsName), hand.position, Quaternion.Euler(90f, 0f, 0f));
             abilityVisual.GetComponent<VisualEffect>().targetLocation = target;
         }
     }

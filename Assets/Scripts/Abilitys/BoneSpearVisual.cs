@@ -4,20 +4,39 @@ using UnityEngine;
 
 public class BoneSpearVisual : VisualEffect
 {
+    public float speed = 0.5f;
+    public float rotationSpeed = 10f;
+    private float fraction = 0f;
+
+    [SerializeField]
+    private ParticleSystem startParticle;
+    [SerializeField]
+    private ParticleSystem hitParticle;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        startingLocation = transform.position;
+        startParticle.Play();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, targetLocation.position, Time.deltaTime * 1);
+        direction = (targetLocation.position - transform.position).normalized;
+
+        if (fraction < 1f)
+        {
+            fraction += Time.deltaTime * speed;
+            transform.position = Vector3.Lerp(startingLocation, targetLocation.position, fraction);
+        }
+        lookRotation = Quaternion.LookRotation(direction) * Quaternion.Euler(90f, 0f, 0f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
 
         if ((Vector3.Distance(transform.position, targetLocation.position) <= 1f))
         {
-            Destroy(this.gameObject);
+            hitParticle.Play();
+            Destroy(this.gameObject, 1);
         }
     }
 }
