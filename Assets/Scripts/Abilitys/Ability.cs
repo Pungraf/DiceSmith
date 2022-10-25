@@ -15,9 +15,11 @@ public class Ability : MonoBehaviour
     private Transform costPanel;
 
     private GameController gameController;
+    public bool isPersistance;
 
-    public void Start()
+    public virtual void Start()
     {
+        effects.Clear();
         costPanel = this.transform.Find("Cost");
         gameController = (GameController)FindObjectOfType(typeof(GameController));
         AssigneCost();
@@ -25,11 +27,14 @@ public class Ability : MonoBehaviour
 
     private void AssigneCost()
     {
-        foreach(KeyValuePair<Resource, int> entry in costDictionary)
+        if(isPersistance)
         {
-            for(int i = 0; i < entry.Value; i++)
+            foreach (KeyValuePair<Resource, int> entry in costDictionary)
             {
-                GameObject resource = (GameObject)Instantiate(Resources.Load("UiTokens/" + entry.Key.type + entry.Key.tier), costPanel);
+                for (int i = 0; i < entry.Value; i++)
+                {
+                    GameObject resource = (GameObject)Instantiate(Resources.Load("UiTokens/" + entry.Key.type + entry.Key.tier), costPanel);
+                }
             }
         }
     }

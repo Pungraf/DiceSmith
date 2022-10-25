@@ -59,8 +59,10 @@ public class GameController : MonoBehaviour, IDataPersistence
     private float cameraRotationSpeed = 5f;
     private float xAxisCameraMovement;
     private float zAxisCameraMovement;
-    
 
+
+    [SerializeField]
+    private RectTransform abilitiesPanel;
     [SerializeField]
     private RectTransform resourcesMainPanel;
     [SerializeField]
@@ -109,6 +111,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         playerHealth.text = player.Health.ToString();
         enemyHealth.text = enemy.Health.ToString();
 
+        Instantiate(Resources.Load("Abilities/BoneSpearButton"), abilitiesPanel.gameObject.transform);
 
         StartCoroutine(Encounter());
     }
@@ -345,8 +348,10 @@ public class GameController : MonoBehaviour, IDataPersistence
             }
         }
         player.PlayAbilityVisuals(ability.animatioName, ability.VisualName, ability.target ? enemy.transform: null);
+        Debug.Log(ability.effects.Count);
         foreach (Effect effect in ability.effects)
         {
+            //Debug.Log(ability.effects.Count);
             effect.Execute(enemy, player);
         }
         UpdateUI();

@@ -11,11 +11,12 @@ public class BoneSpear : Ability
     [SerializeField]
     private int damage;
 
-    public new void Start()
+    public override void Start()
     {
+        
         costDictionary.Add(new Resource("Bone", 1), 1);
+        base.Start();
         effects.Add(new DealDamageEffect(damage));
         damageValue.text = damage.ToString();
-        base.Start();
     }
 }
