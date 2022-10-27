@@ -111,7 +111,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         playerHealth.text = player.Health.ToString();
         enemyHealth.text = enemy.Health.ToString();
 
-        Instantiate(Resources.Load("Abilities/BoneSpearButton"), abilitiesPanel.gameObject.transform);
+        AssigneAbilities();
 
         StartCoroutine(Encounter());
     }
@@ -215,6 +215,15 @@ public class GameController : MonoBehaviour, IDataPersistence
                 AddResources();
                 resourcesAssigned = true;
             }
+        }
+    }
+
+    //Add active abilities to player
+    public void AssigneAbilities()
+    {
+        foreach(string ability in player.abilitiesList)
+        {
+            Instantiate(Resources.Load("Abilities/" + ability + "Button"), abilitiesPanel.gameObject.transform);
         }
     }
 

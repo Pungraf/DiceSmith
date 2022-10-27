@@ -30,6 +30,7 @@ public class Player : Entity, IDataPersistence
     public Dictionary<string, int> resourceDictionary = new Dictionary<string, int>();
     public Animator animator;
     public Vector3 playerThrowDirection = new Vector3();
+    public List<string> abilitiesList = new List<string>();
 
     private void Awake()
     {
@@ -362,6 +363,7 @@ public class Player : Entity, IDataPersistence
         }
 
         inventory.SetItemList(data.itemList);
+        abilitiesList = data.abilitiesList;
     }
 
     //Save data

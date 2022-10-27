@@ -8,10 +8,12 @@ public class GameData
 {
     public SerializableDictionary<string, string> dicesFaces;
     public List<Item> itemList;
+    public List<string> abilitiesList;
 
     public GameData()
     {
         dicesFaces = new SerializableDictionary<string, string>();
         itemList = new List<Item>();
+        abilitiesList = new List<string>();
     }
 }
