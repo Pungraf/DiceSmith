@@ -30,8 +30,11 @@ public class BoneSpearVisual : VisualEffect
             fraction += Time.deltaTime * speed;
             transform.position = Vector3.Lerp(startingLocation, targetLocation.position, fraction);
         }
-        lookRotation = Quaternion.LookRotation(direction) * Quaternion.Euler(90f, 0f, 0f);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+        if(direction != Vector3.zero)
+        {
+            lookRotation = Quaternion.LookRotation(direction) * Quaternion.Euler(90f, 0f, 0f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+        }
 
         if ((Vector3.Distance(transform.position, targetLocation.position) <= 1f))
         {

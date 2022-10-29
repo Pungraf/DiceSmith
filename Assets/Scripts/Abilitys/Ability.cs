@@ -25,10 +25,14 @@ public class Ability : MonoBehaviour
         AssigneCost();
     }
 
-    private void AssigneCost()
+    public void AssigneCost()
     {
         if(isPersistance)
         {
+            foreach (Transform child in costPanel)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
             foreach (KeyValuePair<Resource, int> entry in costDictionary)
             {
                 for (int i = 0; i < entry.Value; i++)

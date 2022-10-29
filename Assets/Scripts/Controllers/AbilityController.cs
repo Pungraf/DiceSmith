@@ -8,9 +8,14 @@ public class AbilityController : MonoBehaviour, IDataPersistence
     private RectTransform abilitySlot;
     [SerializeField]
     private RectTransform abilityPanel;
+    [SerializeField]
+    private List<string> abilitiesList;
+
+    private List<AbilitySlot> abilitiesSlotsList;
+
+    private List<string> activeAbilities = new List<string>();
 
     public static AbilityController Instance { get; private set; }
-    public List<string> activeAbilities = new List<string>();
 
     private void Awake()
     {
@@ -25,7 +30,7 @@ public class AbilityController : MonoBehaviour, IDataPersistence
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
-        InitializeActiveAbilities();
+        InitializeAbilities();
     }
 
     // Update is called once per frame
@@ -34,18 +39,22 @@ public class AbilityController : MonoBehaviour, IDataPersistence
         
     }
 
-    private void InitializeActiveAbilities()
+    private void InitializeAbilities()
     {
         AbilitySlot slot;
 
-        foreach (string ability in activeAbilities)
+        foreach (string ability in abilitiesList)
         {
             slot = Instantiate(abilitySlot, abilityPanel).GetComponent<AbilitySlot>();
-            slot.abilitySelected = true;
+            if(player.abilitiesList.Contains(ability))
+            {
+                slot.abilitySelected = true;
+            }
             slot.abilityName = ability;
             slot.Configuration();
         }
     }
+
 
     public void AddPlayerAbility(string abilityName)
     {
@@ -78,10 +87,12 @@ public class AbilityController : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         activeAbilities = data.abilitiesList;
+        abilitiesList = data.unlockedAbilitiesList;
     }
 
     public void SaveData(ref GameData data)
     {
         data.abilitiesList = player.abilitiesList;
+        data.unlockedAbilitiesList = abilitiesList;
     }
 }

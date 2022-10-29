@@ -357,7 +357,6 @@ public class GameController : MonoBehaviour, IDataPersistence
             }
         }
         player.PlayAbilityVisuals(ability.animatioName, ability.VisualName, ability.target ? enemy.transform: null);
-        Debug.Log(ability.effects.Count);
         foreach (Effect effect in ability.effects)
         {
             //Debug.Log(ability.effects.Count);

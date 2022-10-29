@@ -813,6 +813,14 @@ PrefabInstance:
       propertyPath: abilityPanel
       value: 
       objectReference: {fileID: 1672927700}
+    - target: {fileID: 4127921192551391064, guid: e971bf9bdd9b18f4d9ce4010aa7311fb, type: 3}
+      propertyPath: abilitiesList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127921192551391064, guid: e971bf9bdd9b18f4d9ce4010aa7311fb, type: 3}
+      propertyPath: abilitiesList.Array.data[0]
+      value: BoneSpear
+      objectReference: {fileID: 0}
     - target: {fileID: 6285494172894724261, guid: e971bf9bdd9b18f4d9ce4010aa7311fb, type: 3}
       propertyPath: m_RootOrder
       value: 1

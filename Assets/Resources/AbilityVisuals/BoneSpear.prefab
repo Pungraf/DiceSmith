@@ -9741,7 +9741,7 @@ MonoBehaviour:
   startingLocation: {x: 0, y: 0, z: 0}
   direction: {x: 0, y: 0, z: 0}
   lookRotation: {x: 0, y: 0, z: 0, w: 0}
-  speed: 2
+  speed: 0.5
   rotationSpeed: 10
   startParticle: {fileID: 6584807052739134691}
   hitParticle: {fileID: 8819700489950623337}
