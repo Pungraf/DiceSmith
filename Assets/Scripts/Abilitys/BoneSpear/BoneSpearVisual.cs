@@ -16,7 +16,6 @@ public class BoneSpearVisual : VisualEffect
     // Start is called before the first frame update
     void Start()
     {
-        startingLocation = transform.position;
         startParticle.Play();
     }
 
@@ -28,7 +27,7 @@ public class BoneSpearVisual : VisualEffect
         if (fraction < 1f)
         {
             fraction += Time.deltaTime * speed;
-            transform.position = Vector3.Lerp(startingLocation, targetLocation.position, fraction);
+            transform.position = Vector3.Lerp(spawnLocation.transform.position, targetLocation.position, fraction);
         }
         if(direction != Vector3.zero)
         {

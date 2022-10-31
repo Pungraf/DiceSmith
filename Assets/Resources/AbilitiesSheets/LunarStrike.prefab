@@ -144,7 +144,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bone Spear
+  m_text: Lunar Strike
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -299,9 +299,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6747584398789787855}
   - component: {fileID: 6024409691065871645}
-  - component: {fileID: 6729174511628422121}
+  - component: {fileID: 4344730444342528272}
   m_Layer: 7
-  m_Name: BoneSpear
+  m_Name: LunarStrike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -339,7 +339,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3932285004754255276}
   m_CullTransparentMesh: 1
---- !u!114 &6729174511628422121
+--- !u!114 &4344730444342528272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -348,17 +348,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3932285004754255276}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18a5a220172300749bb550ec1abcfdf1, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f8a414c220bdda4e96e9fd49b34a57e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animatioName: Action
-  VisualName: BoneSpear
+  VisualName: LunarStrike
   target: 1
   spawnAtTarget: 0
   costPanel: {fileID: 16275227719020524}
   isPersistance: 0
   damageValue: {fileID: 2236730363176568677}
-  damage: 1
+  damage: 5
 --- !u!1 &4621069482824069158
 GameObject:
   m_ObjectHideFlags: 0

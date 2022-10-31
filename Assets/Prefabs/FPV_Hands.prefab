@@ -896,6 +896,7 @@ MonoBehaviour:
   magicTypes: []
   animator: {fileID: 0}
   playerThrowDirection: {x: 0, y: 0, z: 0}
+  abilitiesList: []
 --- !u!114 &1815810241
 MonoBehaviour:
   m_ObjectHideFlags: 0

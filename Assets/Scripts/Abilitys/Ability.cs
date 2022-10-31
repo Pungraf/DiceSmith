@@ -9,6 +9,7 @@ public class Ability : MonoBehaviour
     public string animatioName;
     public string VisualName;
     public bool target;
+    public bool spawnAtTarget;
     public Dictionary<Resource, int> costDictionary = new Dictionary<Resource, int>();
     public List<Effect> effects = new List<Effect>();
     [SerializeField]

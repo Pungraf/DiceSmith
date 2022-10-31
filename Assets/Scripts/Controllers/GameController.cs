@@ -42,8 +42,6 @@ public class GameController : MonoBehaviour, IDataPersistence
     private GameObject[] goDices;
     private List<string> dicesToReroll;
     private List<Dice> Dices = new List<Dice>();
-    private Player player;
-    private Enemy enemy;
     private Vector3 throwDirection;
     private Coroutine rollCoroutine;
     private bool onEncounter;
@@ -59,6 +57,9 @@ public class GameController : MonoBehaviour, IDataPersistence
     private float cameraRotationSpeed = 5f;
     private float xAxisCameraMovement;
     private float zAxisCameraMovement;
+
+    public Player player;
+    public Enemy enemy;
 
 
     [SerializeField]
@@ -356,10 +357,9 @@ public class GameController : MonoBehaviour, IDataPersistence
                 return;
             }
         }
-        player.PlayAbilityVisuals(ability.animatioName, ability.VisualName, ability.target ? enemy.transform: null);
+        player.PlayAbilityVisuals(ability.animatioName, ability.VisualName, ability.spawnAtTarget, ability.target);
         foreach (Effect effect in ability.effects)
         {
-            //Debug.Log(ability.effects.Count);
             effect.Execute(enemy, player);
         }
         UpdateUI();

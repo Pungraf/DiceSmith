@@ -21,9 +21,9 @@ public class Player : Entity, IDataPersistence
     private float throwForce = 0f;
     private int dicesOnHand = 0;
     private Dictionary<string, string> facesDictionary = new Dictionary<string, string>();
-    private AbilityEffects abilityEffects;
     private string actualAbilityVisualName;
     private Transform actualAbilityVisualTarget;
+    private Transform actualAbilityVisualSpawn;
 
     public Inventory inventory;
     public List<string> magicTypes = new List<string>();
@@ -31,6 +31,7 @@ public class Player : Entity, IDataPersistence
     public Animator animator;
     public Vector3 playerThrowDirection = new Vector3();
     public List<string> abilitiesList = new List<string>();
+    public AbilityEffects abilityEffects;
 
     private void Awake()
     {
@@ -95,19 +96,40 @@ public class Player : Entity, IDataPersistence
         }
     }
 
-    public void PlayAbilityVisuals(string animationToPlay, string abilityVisualsName, Transform abilityVisualTarget = null)
+    public void PlayAbilityVisuals(string animationToPlay, string abilityVisualsName, bool spawnAtTarget, bool target)
     {
         animator.SetTrigger(animationToPlay);
         actualAbilityVisualName = abilityVisualsName;
-        if(abilityVisualTarget != null)
+
+        if(spawnAtTarget)
         {
-            actualAbilityVisualTarget = abilityVisualTarget;
+            if(target)
+            {
+                actualAbilityVisualTarget = abilityEffects.hand;
+            }
+            else
+            {
+                actualAbilityVisualTarget = null;
+            }
+            actualAbilityVisualSpawn = GameController.Instance.enemy.transform;
+        }
+        else
+        {
+            if (target)
+            {
+                actualAbilityVisualTarget = GameController.Instance.enemy.transform;
+            }
+            else
+            {
+                actualAbilityVisualTarget = null;
+            }
+            actualAbilityVisualSpawn = abilityEffects.hand;
         }
     }
 
     public void SpawnVisualEffect()
     {
-        abilityEffects.SpawnVisuals(actualAbilityVisualName, actualAbilityVisualTarget);
+        abilityEffects.SpawnVisuals(actualAbilityVisualName, actualAbilityVisualSpawn, actualAbilityVisualTarget);
     }
 
     //Assigne tiers to resources

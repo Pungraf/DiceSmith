@@ -5,9 +5,8 @@ using UnityEngine;
 public class AbilityEffects : MonoBehaviour
 {
     [SerializeField]
-    private Transform hand;
-    [SerializeField]
     private Transform enemy;
+    public Transform hand;
 
 
     // Start is called before the first frame update
@@ -21,17 +20,19 @@ public class AbilityEffects : MonoBehaviour
     {
     }
 
-    public void SpawnVisuals(string visualsName, Transform target = null)
+    public void SpawnVisuals(string visualsName, Transform spawn, Transform target)
     {
         GameObject abilityVisual;
         if (target == null)
         {
-            abilityVisual = (GameObject)Instantiate(Resources.Load("AbilityVisuals/" + visualsName), hand.position, Quaternion.Euler(90f, 0f, 0f));
+            abilityVisual = (GameObject)Instantiate(Resources.Load("AbilityVisuals/" + visualsName), spawn.position, Quaternion.Euler(90f, 0f, 0f));
+            abilityVisual.GetComponent<VisualEffect>().spawnLocation = spawn;
         }
         else
         {
-            abilityVisual = (GameObject)Instantiate(Resources.Load("AbilityVisuals/" + visualsName), hand.position, Quaternion.Euler(90f, 0f, 0f));
+            abilityVisual = (GameObject)Instantiate(Resources.Load("AbilityVisuals/" + visualsName), spawn.position, Quaternion.Euler(90f, 0f, 0f));
             abilityVisual.GetComponent<VisualEffect>().targetLocation = target;
+            abilityVisual.GetComponent<VisualEffect>().spawnLocation = spawn;
         }
     }
 }
