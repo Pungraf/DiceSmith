@@ -24,6 +24,7 @@ public class AbilitySlot : MonoBehaviour
     {
         abilitySheetGo = (GameObject) Instantiate(Resources.Load("AbilitiesSheets/" + abilityName), transform);
         ability = abilitySheetGo.GetComponent<Ability>();
+        ability.isPersistance = true;
         abilitySheet = abilitySheetGo.GetComponent<RectTransform>();
         abilityPanel = (RectTransform)abilitySheet.GetChild(0);
         this.GetComponent<Button_UI>().ClickFunc = () =>

@@ -63,6 +63,8 @@ public class GameController : MonoBehaviour, IDataPersistence
 
 
     [SerializeField]
+    private TMP_Text gamePhaseText;
+    [SerializeField]
     private RectTransform abilitiesPanel;
     [SerializeField]
     private RectTransform resourcesMainPanel;
@@ -412,7 +414,8 @@ public class GameController : MonoBehaviour, IDataPersistence
             rerolls = 3;
 
             Debug.Log("Player Turn");
-            while (playerTurn)
+            gamePhaseText.text = "Player Turn";
+            while (playerTurn && onEncounter)
             {
                 if(endTurn)
                 {
@@ -425,13 +428,14 @@ public class GameController : MonoBehaviour, IDataPersistence
             rerolls = 3;
 
             Debug.Log("Enemy Turn");
-            while (!playerTurn)
+            gamePhaseText.text = "Enemy Turn";
+            while (!playerTurn && onEncounter)
             {
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(0.5f);
                 Debug.Log("Enemy dealed damage");
                 enemy.DealDamage();
                 UpdateUI();
-                yield return new WaitForSeconds(2);
+                yield return new WaitForSeconds(0.5f);
                 playerTurn = true;
                 yield return null;
             }
@@ -440,14 +444,18 @@ public class GameController : MonoBehaviour, IDataPersistence
         if(player.Health <= 0 && enemy.Health <= 0)
         {
             Debug.Log("Encounter finished with Draw");
+            gamePhaseText.text = "Encounter finished with Draw";
         }
         else if(enemy.Health <= 0)
         {
             Debug.Log("Encounter finished, Player Won");
+            gamePhaseText.text = "Encounter finished, Player Won";
+            enemy.AssigneLoot();
         }
         else
         {
             Debug.Log("Encounter finished, Enemy Won");
+            gamePhaseText.text = "Encounter finished, Enemy Won";
         }
 
         yield break;
