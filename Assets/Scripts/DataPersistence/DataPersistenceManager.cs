@@ -34,6 +34,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void NewGame()
     {
+        dataHandler.NewGame();
         this.gameData = new GameData();
     }
 

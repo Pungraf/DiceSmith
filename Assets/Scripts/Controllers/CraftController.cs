@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CraftController : MonoBehaviour, IDataPersistence
@@ -40,6 +41,12 @@ public class CraftController : MonoBehaviour, IDataPersistence
     void Update()
     {
         
+    }
+
+    public void BackToHub()
+    {
+        DataPersistenceManager.instance.SaveGame();
+        SceneManager.LoadScene(1);
     }
 
     private void ClearFaceSlots()

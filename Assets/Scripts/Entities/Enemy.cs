@@ -40,7 +40,7 @@ public class Enemy : Entity
         int lootedNumber = Random.Range(1, 4);
         for(int i = 0; i < lootedNumber; i++)
         {
-            Item lootedBase = dropPool[Random.Range(0, loot.Count + 1)];
+            Item lootedBase = dropPool[Random.Range(0, dropPool.Count)];
             int itemQuantity = Random.Range(1, 4);
             loot.Add(new Item { itemType = lootedBase.itemType, amount = itemQuantity, isStackable = lootedBase.isStackable });
         }
@@ -55,7 +55,7 @@ public class Enemy : Entity
     {
         foreach(Item item in loot)
         {
-            Debug.Log("Looted: " + item.itemType + " x" + item.amount);
+            GameController.Instance.lootToText += item.itemType + " x" + item.amount + "\n";
             target.GetComponent<Player>().inventory.AddItem(item);
         }
     }

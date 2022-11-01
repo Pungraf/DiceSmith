@@ -4,5 +4,23 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 26dedfa3e20eaa84d88e137b8d0659fa
+  - enabled: 1
+    path: Assets/Scenes/HubMenu.unity
+    guid: bc504aa12ccd96e40b462f0b86555cd1
+  - enabled: 1
+    path: Assets/Scenes/ArenaMenu.unity
+    guid: cfe7e86ac538dd649bdeb2a0de41e9fa
+  - enabled: 1
+    path: Assets/Scenes/Abilities.unity
+    guid: f74bffc679673cc4fb11a96a354a7e36
+  - enabled: 1
+    path: Assets/Scenes/Smith.unity
+    guid: 62b35cef54c673d4598ce4048d43b113
+  - enabled: 1
+    path: Assets/Scenes/JailerRoom.unity
+    guid: 73ca10c232662f548a0c86fcd0e5bb61
   m_configObjects: {}

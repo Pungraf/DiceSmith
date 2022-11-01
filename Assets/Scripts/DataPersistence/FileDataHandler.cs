@@ -18,6 +18,15 @@ public class FileDataHandler
         this.useEncryption = useEncryption;
     }
 
+    public void NewGame()
+    {
+        string fullPath = Path.Combine(dataDirPath, dataFileName);
+        if (File.Exists(fullPath))
+        {
+            File.Delete(fullPath);
+        }
+    }
+
     public GameData Load()
     {
         string fullPath = Path.Combine(dataDirPath, dataFileName);

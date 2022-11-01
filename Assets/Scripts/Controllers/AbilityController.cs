@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AbilityController : MonoBehaviour, IDataPersistence
 {
@@ -37,6 +38,12 @@ public class AbilityController : MonoBehaviour, IDataPersistence
     void Update()
     {
         
+    }
+
+    public void BackToHub()
+    {
+        DataPersistenceManager.instance.SaveGame();
+        SceneManager.LoadScene(1);
     }
 
     private void InitializeAbilities()

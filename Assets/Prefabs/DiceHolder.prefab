@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1543524658286486900}
   m_Layer: 7
-  m_Name: DiceHolder (1)
+  m_Name: DiceHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

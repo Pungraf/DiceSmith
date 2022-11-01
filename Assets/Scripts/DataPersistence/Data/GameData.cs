@@ -13,10 +13,25 @@ public class GameData
 
     public GameData()
     {
-        dicesFaces = new SerializableDictionary<string, string>();
-        itemList = new List<Item>();
+        dicesFaces = new SerializableDictionary<string, string> {   {"20kOneFaceSlot 1",  "Missfortune"},
+                                                                    {"20kOneFaceSlot 20",  "Luck"},
+                                                                    {"20kTwoFaceSlot 1",  "Missfortune"},
+                                                                    {"20kTwoFaceSlot 20",  "Luck"},
+                                                                    {"20kThreeFaceSlot 1",  "Missfortune"},
+                                                                    {"20kThreeFaceSlot 20",  "Luck"},
+                                                                    {"20kFourFaceSlot 1",  "Missfortune"},
+                                                                    {"20kFourFaceSlot 20",  "Luck"},
+                                                                    {"20kFiveFaceSlot 1",  "Missfortune"},
+                                                                    {"20kFiveFaceSlot 20",  "Luck"}};
+
+        itemList = new List<Item> { new Item { itemType = Item.ItemType.Claw, amount = 15, isStackable = true },
+                                    new Item { itemType = Item.ItemType.Blood, amount = 5, isStackable = true }};
+
         abilitiesList = new List<string>();
-        unlockedAbilitiesList = new List<string>();
+
+        unlockedAbilitiesList = new List<string> {  "BloodDrain",
+                                                    "BoneSpear",
+                                                    "LunarStrike"};
     }
 }
 

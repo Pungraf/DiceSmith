@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour, IDataPersistence
 {
@@ -17,7 +18,6 @@ public class GameController : MonoBehaviour, IDataPersistence
     }
 
     public int rerolls;
-    public bool endTurn;
 
     [SerializeField]
     private bool dicesRolled;
@@ -45,7 +45,6 @@ public class GameController : MonoBehaviour, IDataPersistence
     private Vector3 throwDirection;
     private Coroutine rollCoroutine;
     private bool onEncounter;
-    private bool playerTurn;
     private bool rolled;
     private bool resourcesAssigned;
     private bool lookupMode;
@@ -58,9 +57,11 @@ public class GameController : MonoBehaviour, IDataPersistence
     private float xAxisCameraMovement;
     private float zAxisCameraMovement;
 
+
+    public bool playerTurn;
+    public string lootToText;
     public Player player;
     public Enemy enemy;
-
 
     [SerializeField]
     private TMP_Text gamePhaseText;
@@ -72,8 +73,12 @@ public class GameController : MonoBehaviour, IDataPersistence
     private RectTransform temporalResourcePanel;
     [SerializeField]
     private GameObject resourcesPanelPrefab;
+    [SerializeField]
+    private RectTransform finishPanel;
+    [SerializeField]
+    private TMP_Text lootText;
 
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -153,7 +158,7 @@ public class GameController : MonoBehaviour, IDataPersistence
                 player.animator.SetTrigger("Throw");
             }
     
-            if (Input.GetMouseButtonDown(1) && GetWorldPoint() != Vector3.zero && !dicesInMove && dicesRolled && !endTurn)
+            if (Input.GetMouseButtonDown(1) && GetWorldPoint() != Vector3.zero && !dicesInMove && dicesRolled)
             {
                 addDiceToReroll();
             }
@@ -164,6 +169,13 @@ public class GameController : MonoBehaviour, IDataPersistence
         {
             onEncounter = false;
         }
+    }
+
+    // Returnto hub scene
+    public void BackToHub()
+    {
+        DataPersistenceManager.instance.SaveGame();
+        SceneManager.LoadScene(1);
     }
 
     //Camer movement during lookup mode
@@ -413,35 +425,27 @@ public class GameController : MonoBehaviour, IDataPersistence
             rolled = false;
             rerolls = 3;
 
-            Debug.Log("Player Turn");
             gamePhaseText.text = "Player Turn";
             while (playerTurn && onEncounter)
             {
-                if(endTurn)
-                {
-                    playerTurn = false;
-                }
+                
                 yield return null;
             }
             resourcesAssigned = false;
             rolled = false;
             rerolls = 3;
 
-            Debug.Log("Enemy Turn");
             gamePhaseText.text = "Enemy Turn";
             while (!playerTurn && onEncounter)
             {
-                yield return new WaitForSeconds(0.5f);
-                Debug.Log("Enemy dealed damage");
                 enemy.DealDamage();
                 UpdateUI();
-                yield return new WaitForSeconds(0.5f);
-                playerTurn = true;
                 yield return null;
             }
             yield return null;
         }
-        if(player.Health <= 0 && enemy.Health <= 0)
+
+        if (player.Health <= 0 && enemy.Health <= 0)
         {
             Debug.Log("Encounter finished with Draw");
             gamePhaseText.text = "Encounter finished with Draw";
@@ -457,6 +461,9 @@ public class GameController : MonoBehaviour, IDataPersistence
             Debug.Log("Encounter finished, Enemy Won");
             gamePhaseText.text = "Encounter finished, Enemy Won";
         }
+
+        lootText.text = lootToText;
+        finishPanel.gameObject.SetActive(true);
 
         yield break;
     }
