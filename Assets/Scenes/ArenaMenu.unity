@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 711ef8850e8a4024d9ca3067d0590071, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -801,7 +801,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7b4d206ae25b14a4a91ea6e9d9b776f4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1308,7 +1308,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 25302270a969b1643ad59952a489af2a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1664,7 +1664,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1095806860176065067}
         m_TargetAssemblyTypeName: ArenaController, Assembly-CSharp
-        m_MethodName: FightJailor
+        m_MethodName: FightCaveLord
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1928,7 +1928,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1095806860176065067}
         m_TargetAssemblyTypeName: ArenaController, Assembly-CSharp
-        m_MethodName: FightJailor
+        m_MethodName: FightGuardian
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1987,6 +1987,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArenaController
       objectReference: {fileID: 0}
+    - target: {fileID: 4323625273946583613, guid: a443a40b3055c7b42a116999c9d0553d, type: 3}
+      propertyPath: jailor
+      value: 
+      objectReference: {fileID: 5683639478478272411, guid: e571a855d76d6e0478ecf25a233d5f6a, type: 3}
+    - target: {fileID: 4323625273946583613, guid: a443a40b3055c7b42a116999c9d0553d, type: 3}
+      propertyPath: caveLord
+      value: 
+      objectReference: {fileID: 5683639478478272411, guid: ea7f616613096c34fb9f2d4fe8dfcb4e, type: 3}
+    - target: {fileID: 4323625273946583613, guid: a443a40b3055c7b42a116999c9d0553d, type: 3}
+      propertyPath: guaardian
+      value: 
+      objectReference: {fileID: 5683639478478272411, guid: 2aa30d69f134d3645b273db47eab0ceb, type: 3}
+    - target: {fileID: 4323625273946583613, guid: a443a40b3055c7b42a116999c9d0553d, type: 3}
+      propertyPath: jailorImage
+      value: 
+      objectReference: {fileID: 1253984151}
+    - target: {fileID: 4323625273946583613, guid: a443a40b3055c7b42a116999c9d0553d, type: 3}
+      propertyPath: caveLordImage
+      value: 
+      objectReference: {fileID: 419122444}
+    - target: {fileID: 4323625273946583613, guid: a443a40b3055c7b42a116999c9d0553d, type: 3}
+      propertyPath: guardianImage
+      value: 
+      objectReference: {fileID: 8632989}
     - target: {fileID: 8258906814652837369, guid: a443a40b3055c7b42a116999c9d0553d, type: 3}
       propertyPath: m_RootOrder
       value: 1

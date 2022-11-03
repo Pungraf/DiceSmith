@@ -85,6 +85,7 @@ public class GameController : MonoBehaviour, IDataPersistence
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
+        enemy.target = player.gameObject;
         dicesToReroll = new List<string>();
         dicesRolled = false;
         dicesInMove = false;
@@ -114,8 +115,8 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
 
 
-        player.Health = 30;
-        enemy.Health = 30;
+        player.Health = 20;
+
         playerHealth.text = player.Health.ToString();
         enemyHealth.text = enemy.Health.ToString();
 
@@ -197,6 +198,13 @@ public class GameController : MonoBehaviour, IDataPersistence
         {
             eyeCamera.transform.Translate(Vector3.right * Time.deltaTime * cameraSpeed);
         }
+    }
+
+
+    // Surrender current fight
+    public void Surrender()
+    {
+        player.Health = 0;
     }
 
     //Finish current turn
@@ -380,7 +388,7 @@ public class GameController : MonoBehaviour, IDataPersistence
     }
 
     //Refresh values in UI
-    private void UpdateUI()
+    public void UpdateUI()
     {
         playerHealth.text = player.Health.ToString();
         enemyHealth.text = enemy.Health.ToString();
@@ -438,8 +446,9 @@ public class GameController : MonoBehaviour, IDataPersistence
             gamePhaseText.text = "Enemy Turn";
             while (!playerTurn && onEncounter)
             {
-                enemy.DealDamage();
-                UpdateUI();
+                enemy.Attack();
+                playerTurn = true;
+                yield return new WaitForSeconds(2f);
                 yield return null;
             }
             yield return null;
