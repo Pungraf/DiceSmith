@@ -43,7 +43,7 @@ public class AbilityController : MonoBehaviour, IDataPersistence
     public void BackToHub()
     {
         DataPersistenceManager.instance.SaveGame();
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("HubMenu");
     }
 
     private void InitializeAbilities()

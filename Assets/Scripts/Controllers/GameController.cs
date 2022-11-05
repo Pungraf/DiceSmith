@@ -176,7 +176,7 @@ public class GameController : MonoBehaviour, IDataPersistence
     public void BackToHub()
     {
         DataPersistenceManager.instance.SaveGame();
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("HubMenu");
     }
 
     //Camer movement during lookup mode

@@ -3356,6 +3356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -5187,6 +5188,10 @@ PrefabInstance:
     - target: {fileID: 8059950454181524506, guid: cb202e370efca2c4fbbe415f2492668f, type: 3}
       propertyPath: _distanceFromTarget
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8059950454181524506, guid: cb202e370efca2c4fbbe415f2492668f, type: 3}
+      propertyPath: _rotationSensitivity
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8059950454181524507, guid: cb202e370efca2c4fbbe415f2492668f, type: 3}
       propertyPath: m_RootOrder

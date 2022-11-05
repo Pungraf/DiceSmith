@@ -24,6 +24,6 @@ public class ArenaController : MonoBehaviour
 
     public void BackToHub()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("HubMenu");
     }
 }

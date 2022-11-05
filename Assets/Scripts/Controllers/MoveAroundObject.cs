@@ -35,19 +35,19 @@ public class MoveAroundObject : MonoBehaviour
         float rotationY = 0;
         if (Input.GetKey(KeyCode.W))
         {
-            rotationY = _rotationSensitivity;
+            rotationY = _rotationSensitivity * Time.deltaTime;
         }
         else if(Input.GetKey(KeyCode.S))
         {
-            rotationY = -_rotationSensitivity;
+            rotationY = -_rotationSensitivity * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            rotationX = _rotationSensitivity;
+            rotationX = _rotationSensitivity * Time.deltaTime;
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            rotationX = -_rotationSensitivity;
+            rotationX = -_rotationSensitivity * Time.deltaTime;
         }
 
         _rotationY += rotationX;
