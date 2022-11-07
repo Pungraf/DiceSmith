@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Enemy : Entity
@@ -22,6 +23,7 @@ public class Enemy : Entity
     // Start is called before the first frame update
     public void Start()
     {
+        base.Start();
         dropPool.Add(new Item { itemType = Item.ItemType.Eclipse, amount = 1, isStackable = true });
         dropPool.Add(new Item { itemType = Item.ItemType.Crescent, amount = 1, isStackable = true });
         dropPool.Add(new Item { itemType = Item.ItemType.FullMoon, amount = 1, isStackable = true });
@@ -40,7 +42,7 @@ public class Enemy : Entity
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void GenerateDrop()
@@ -64,6 +66,8 @@ public class Enemy : Entity
         target.GetComponent<Entity>().Health -= damage;
         GameController.Instance.UpdateUI();
         attackParticle.Play();
+        statusesList.Add(new BoneShieldStatus(2));
+
     }
 
     public void AssigneLoot()
