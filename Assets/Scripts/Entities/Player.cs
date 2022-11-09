@@ -21,28 +21,22 @@ public class Player : Entity, IDataPersistence
     private float throwForce = 0f;
     private int dicesOnHand = 0;
     private Dictionary<string, string> facesDictionary = new Dictionary<string, string>();
-    private string actualAbilityVisualName;
-    private Transform actualAbilityVisualTarget;
-    private Transform actualAbilityVisualSpawn;
 
     public Inventory inventory;
     public List<string> magicTypes = new List<string>();
     public Dictionary<string, int> resourceDictionary = new Dictionary<string, int>();
-    public Animator animator;
     public Vector3 playerThrowDirection = new Vector3();
     public List<string> abilitiesList = new List<string>();
-    public AbilityEffects abilityEffects;
 
     private void Awake()
     {
         inventory = new Inventory();
-        animator = GetComponent<Animator>();
-        abilityEffects = GetComponent<AbilityEffects>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        base.Start();
         if(UI_Inventory != null)
         {
             UI_Inventory.SetInventory(inventory);
@@ -96,41 +90,8 @@ public class Player : Entity, IDataPersistence
         }
     }
 
-    public void PlayAbilityVisuals(string animationToPlay, string abilityVisualsName, bool spawnAtTarget, bool target)
-    {
-        animator.SetTrigger(animationToPlay);
-        actualAbilityVisualName = abilityVisualsName;
+    
 
-        if(spawnAtTarget)
-        {
-            if(target)
-            {
-                actualAbilityVisualTarget = abilityEffects.hand;
-            }
-            else
-            {
-                actualAbilityVisualTarget = null;
-            }
-            actualAbilityVisualSpawn = GameController.Instance.enemy.transform;
-        }
-        else
-        {
-            if (target)
-            {
-                actualAbilityVisualTarget = GameController.Instance.enemy.transform;
-            }
-            else
-            {
-                actualAbilityVisualTarget = null;
-            }
-            actualAbilityVisualSpawn = abilityEffects.hand;
-        }
-    }
-
-    public void SpawnVisualEffect()
-    {
-        abilityEffects.SpawnVisuals(actualAbilityVisualName, actualAbilityVisualSpawn, actualAbilityVisualTarget);
-    }
 
     //Assigne tiers to resources
     private void AssigneResources()

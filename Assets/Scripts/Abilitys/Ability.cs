@@ -10,42 +10,20 @@ public class Ability : MonoBehaviour
     public string VisualName;
     public bool target;
     public bool spawnAtTarget;
-    public Dictionary<Resource, int> costDictionary = new Dictionary<Resource, int>();
-    public List<Effect> effects = new List<Effect>();
-    [SerializeField]
-    private Transform costPanel;
+    public List<Effect> effects;
+    public Dictionary<Resource, int> costDictionary;
 
-    private GameController gameController;
-    public bool isPersistance;
 
     public virtual void Start()
     {
+        effects = new List<Effect>();
+        costDictionary = new Dictionary<Resource, int>();
         effects.Clear();
-        costPanel = this.transform.Find("Cost");
-        gameController = (GameController)FindObjectOfType(typeof(GameController));
-        AssigneCost();
+
     }
 
-    public void AssigneCost()
+    public void Cast(Entity caster, Entity abilityEnemy, Entity abilityAlly)
     {
-        if(isPersistance)
-        {
-            foreach (Transform child in costPanel)
-            {
-                GameObject.Destroy(child.gameObject);
-            }
-            foreach (KeyValuePair<Resource, int> entry in costDictionary)
-            {
-                for (int i = 0; i < entry.Value; i++)
-                {
-                    GameObject resource = (GameObject)Instantiate(Resources.Load("UiTokens/" + entry.Key.type + entry.Key.tier), costPanel);
-                }
-            }
-        }
-    }
-
-    public void Cast()
-    {
-        gameController.ExecuteAbility(this);
+        GameController.Instance.ExecuteAbility(this, caster, abilityEnemy, abilityAlly);
     }
 }

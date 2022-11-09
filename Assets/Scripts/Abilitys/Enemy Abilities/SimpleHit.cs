@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jailer : Enemy
+public class SimpleHit : EnemyAbility
 {
+    public int _damage;
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
         base.Start();
-        Health = 10;
-
+        effects.Add(new DealDamageEffect(_damage));
     }
 
     // Update is called once per frame

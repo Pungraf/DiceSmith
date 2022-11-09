@@ -9,12 +9,10 @@ public class Guardian : Enemy
     {
         base.Start();
         Health = 20;
-        statusesList.Add(new Status());
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(statusesList.Count);
     }
 }

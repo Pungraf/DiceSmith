@@ -10,23 +10,25 @@ public class AbilityButton : MonoBehaviour
     [SerializeField]
     private GameObject abilitySheet;
 
-    public Ability ability;
+    public PlayerAbility ability;
     // Start is called before the first frame update
     public void Start()
     {
+        abilitySheet.GetComponent<PlayerAbility>().isPersistance = true;
+        abilitySheet.GetComponent<PlayerAbility>().Start();
         abilitySheet.gameObject.SetActive(false);
-        abilitySheet.GetComponent<Ability>().isPersistance = true;
-        ability = abilityGo.GetComponent<Ability>();
+        ability = abilityGo.GetComponent<PlayerAbility>();
         ability.Start();
         this.GetComponent<Button_UI>().MouseOverOnceFunc = () =>
         {
             abilitySheet.gameObject.SetActive(true);
-            abilitySheet.GetComponent<Ability>().AssigneCost();
+            abilitySheet.GetComponent<PlayerAbility>().AssigneCost();
         };
         this.GetComponent<Button_UI>().MouseOutOnceFunc = () =>
         {
             abilitySheet.gameObject.SetActive(false);
         };
+        
     }
 
     // Update is called once per frame
@@ -36,6 +38,6 @@ public class AbilityButton : MonoBehaviour
 
     public void CastAbility()
     {
-        ability.Cast();
+        ability.Cast(GameController.Instance.player, GameController.Instance.player.GetEnemy(), GameController.Instance.player);
     }
 }

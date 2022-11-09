@@ -9,7 +9,7 @@ public class AbilitySlot : MonoBehaviour
     public string abilityName;
     public bool abilitySelected = false;
 
-    private Ability ability;
+    private PlayerAbility ability;
     private GameObject abilitySheetGo;
     private RectTransform abilitySheet;
     private RectTransform abilityPanel;
@@ -23,7 +23,7 @@ public class AbilitySlot : MonoBehaviour
     public void Configuration()
     {
         abilitySheetGo = (GameObject) Instantiate(Resources.Load("AbilitiesSheets/" + abilityName), transform);
-        ability = abilitySheetGo.GetComponent<Ability>();
+        ability = abilitySheetGo.GetComponent<PlayerAbility>();
         ability.isPersistance = true;
         abilitySheet = abilitySheetGo.GetComponent<RectTransform>();
         abilityPanel = (RectTransform)abilitySheet.GetChild(0);

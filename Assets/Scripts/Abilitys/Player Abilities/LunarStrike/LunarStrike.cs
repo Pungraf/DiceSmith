@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class LunarStrike : Ability
+public class LunarStrike : PlayerAbility
 {
     [SerializeField]
     private TMP_Text damageValue;

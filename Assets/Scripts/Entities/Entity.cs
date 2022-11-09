@@ -8,6 +8,14 @@ public class Entity : MonoBehaviour
     private int _incomingDamage;
 
     public List<Status> statusesList;
+    public Animator animator;
+    public AbilityEffects abilityEffects;
+    public Entity enemy;
+
+
+    private string actualAbilityVisualName;
+    private Transform actualAbilityVisualTarget;
+    private Transform actualAbilityVisualSpawn;
 
     public int IncomingDamage
     {
@@ -32,11 +40,26 @@ public class Entity : MonoBehaviour
     public void Start()
     {
         statusesList = new List<Status>();
+        animator = GetComponent<Animator>();
+        abilityEffects = GetComponent<AbilityEffects>();
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+
+    //Set player enemy
+    public void SetEnemy(Entity playerEnemy)
+    {
+        enemy = playerEnemy;
+    }
+
+    //Get player Enemy
+    public Entity GetEnemy()
+    {
+        return enemy;
     }
 
     private void UseShields()
@@ -58,24 +81,6 @@ public class Entity : MonoBehaviour
                 }
             }
         }
-
-        /*foreach(Status status in statusesList)
-        {
-            if(status is IShieldEffect)
-            {
-                ShieldStatus currentShield = (ShieldStatus)status;
-                int overDamage = currentShield.UseShield(IncomingDamage);
-                if(overDamage > 0)
-                {
-                    IncomingDamage = 0;
-                }
-                else
-                {
-                    IncomingDamage = Mathf.Abs(overDamage);
-                    statusesList.Remove(status);
-                }
-            }
-        }*/
     }
 
     public void GetDamage(int damage)
@@ -84,5 +89,41 @@ public class Entity : MonoBehaviour
         UseShields();
         Health -= IncomingDamage;
         IncomingDamage = 0;
+    }
+
+    public void PlayAbilityVisuals(string animationToPlay, string abilityVisualsName, bool spawnAtTarget, bool target)
+    {
+        animator.SetTrigger(animationToPlay);
+        actualAbilityVisualName = abilityVisualsName;
+
+        if (spawnAtTarget)
+        {
+            if (target)
+            {
+                actualAbilityVisualTarget = abilityEffects.hand;
+            }
+            else
+            {
+                actualAbilityVisualTarget = null;
+            }
+            actualAbilityVisualSpawn = GameController.Instance.enemy.transform;
+        }
+        else
+        {
+            if (target)
+            {
+                actualAbilityVisualTarget = GameController.Instance.enemy.transform;
+            }
+            else
+            {
+                actualAbilityVisualTarget = null;
+            }
+            actualAbilityVisualSpawn = abilityEffects.hand;
+        }
+    }
+
+    public void SpawnVisualEffect()
+    {
+        abilityEffects.SpawnVisuals(actualAbilityVisualName, actualAbilityVisualSpawn, actualAbilityVisualTarget);
     }
 }

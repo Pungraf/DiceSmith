@@ -5,19 +5,14 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
-    [SerializeField]
-    ParticleSystem attackParticle;
 
     private List<Item> dropPool = new List<Item>();
     private List<Item> loot = new List<Item>();
-    public Animator animator; 
- 
-    public int damage = 5;
-    public GameObject target;
+
+    public EnemyAbility ability;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -37,6 +32,8 @@ public class Enemy : Entity
         dropPool.Add(new Item { itemType = Item.ItemType.Skull, amount = 1, isStackable = true });
 
         GenerateDrop();
+
+        ability.Start();
     }
 
     // Update is called once per frame
@@ -56,18 +53,9 @@ public class Enemy : Entity
         }
     }
 
-    public void Attack()
-    {
-        animator.SetTrigger("Attack");
-    }
-
     public void DealDamage()
     {
-        target.GetComponent<Entity>().Health -= damage;
-        GameController.Instance.UpdateUI();
-        attackParticle.Play();
-        statusesList.Add(new BoneShieldStatus(2));
-
+        GameController.Instance.ExecuteAbility(ability, this, enemy, this);
     }
 
     public void AssigneLoot()
@@ -75,7 +63,7 @@ public class Enemy : Entity
         foreach(Item item in loot)
         {
             GameController.Instance.lootToText += item.itemType + " x" + item.amount + "\n";
-            target.GetComponent<Player>().inventory.AddItem(item);
+            enemy.GetComponent<Player>().inventory.AddItem(item);
         }
     }
 }

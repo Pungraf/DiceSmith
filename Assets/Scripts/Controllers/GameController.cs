@@ -85,11 +85,12 @@ public class GameController : MonoBehaviour, IDataPersistence
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
-        enemy.target = player.gameObject;
         dicesToReroll = new List<string>();
         dicesRolled = false;
         dicesInMove = false;
         FindeDices();
+        player.SetEnemy(enemy);
+        enemy.SetEnemy(player);
 
         foreach(string magicType in player.magicTypes)
         {
@@ -357,7 +358,7 @@ public class GameController : MonoBehaviour, IDataPersistence
     }
 
     //Use send ability
-    public void ExecuteAbility(Ability ability)
+    public void ExecuteAbility(Ability ability, Entity caster, Entity abilityEnemy, Entity abilityAlly)
     {
         foreach(KeyValuePair<Resource, int> token in ability.costDictionary)
         {
@@ -379,10 +380,13 @@ public class GameController : MonoBehaviour, IDataPersistence
                 return;
             }
         }
-        player.PlayAbilityVisuals(ability.animatioName, ability.VisualName, ability.spawnAtTarget, ability.target);
+
+        caster.PlayAbilityVisuals(ability.animatioName, ability.VisualName, ability.spawnAtTarget, ability.target);
+        
+
         foreach (Effect effect in ability.effects)
         {
-            effect.Execute(enemy, player);
+            effect.Execute(abilityEnemy, abilityAlly);
         }
         UpdateUI();
     }
@@ -446,7 +450,7 @@ public class GameController : MonoBehaviour, IDataPersistence
             gamePhaseText.text = "Enemy Turn";
             while (!playerTurn && onEncounter)
             {
-                enemy.Attack();
+                enemy.DealDamage();
                 playerTurn = true;
                 yield return new WaitForSeconds(2f);
                 yield return null;

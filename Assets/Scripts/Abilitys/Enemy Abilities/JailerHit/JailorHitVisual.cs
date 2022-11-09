@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jailer : Enemy
+public class JailorHitVisual : VisualEffect
 {
     // Start is called before the first frame update
     void Start()
     {
-        base.Start();
-        Health = 10;
-
+        Destroy(this.gameObject, 5);
     }
 
     // Update is called once per frame
