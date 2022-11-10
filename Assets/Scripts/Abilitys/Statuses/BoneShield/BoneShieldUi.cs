@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Status
+public class BoneShieldUi : StatusUi
 {
-    public StatusUi statusUi;
-
     // Start is called before the first frame update
     void Start()
     {

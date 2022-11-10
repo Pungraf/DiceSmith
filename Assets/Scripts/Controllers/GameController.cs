@@ -11,11 +11,7 @@ public class GameController : MonoBehaviour, IDataPersistence
 {
     public static GameController Instance { get; private set; }
 
-    private void Awake()
-    {
-        Instance = this;
-
-    }
+    
 
     public int rerolls;
 
@@ -38,6 +34,10 @@ public class GameController : MonoBehaviour, IDataPersistence
     [SerializeField]
     private float cameraClampValue;
 
+    //Hardcoded place to spawn enemy
+    [SerializeField]
+    private Vector3 enemySpawnPoint = new Vector3(0f, 5.5f, 35f);
+
     // TODO fix empty objects in goDices and Dices ( now fixed by null checkup in methods )
     private GameObject[] goDices;
     private List<string> dicesToReroll;
@@ -56,6 +56,7 @@ public class GameController : MonoBehaviour, IDataPersistence
     private float cameraRotationSpeed = 5f;
     private float xAxisCameraMovement;
     private float zAxisCameraMovement;
+    
 
 
     public bool playerTurn;
@@ -78,6 +79,19 @@ public class GameController : MonoBehaviour, IDataPersistence
     [SerializeField]
     private TMP_Text lootText;
 
+    private void Awake()
+    {
+        Instance = this;
+
+        if(MultiSceneVariables.ArenaEnemyToSpawn != null)
+        {
+            Instantiate(Resources.Load("Enemies/" + MultiSceneVariables.ArenaEnemyToSpawn), enemySpawnPoint, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(Resources.Load("Enemies/Jailer"), enemySpawnPoint, Quaternion.identity);
+        }
+    }
 
 
     // Start is called before the first frame update

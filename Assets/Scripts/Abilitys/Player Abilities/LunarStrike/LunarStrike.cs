@@ -13,11 +13,14 @@ public class LunarStrike : PlayerAbility
 
     public override void Start()
     {
+        base.Start();
 
         costDictionary.Add(new Resource("Night", 2), 2);
         costDictionary.Add(new Resource("Night", 3), 1);
-        base.Start();
+
         effects.Add(new DealDamageEffect(damage));
         damageValue.text = damage.ToString();
+
+        AssigneCost();
     }
 }

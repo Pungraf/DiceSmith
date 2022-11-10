@@ -2,19 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Status
+public class BoneShieldButton : AbilityButton
 {
-    public StatusUi statusUi;
-
     // Start is called before the first frame update
-    void Start()
+    public new void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

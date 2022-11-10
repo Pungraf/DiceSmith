@@ -9,17 +9,20 @@ public class ArenaController : MonoBehaviour
 {
     public void FightJailor()
     {
-        SceneManager.LoadScene("JailerRoom");
+        MultiSceneVariables.ArenaEnemyToSpawn = "Jailer";
+        SceneManager.LoadScene("Arena");
     }
 
     public void FightGuardian()
     {
-        SceneManager.LoadScene("GuardianRoom");
+        MultiSceneVariables.ArenaEnemyToSpawn = "Guardian";
+        SceneManager.LoadScene("Arena");
     }
 
     public void FightCaveLord()
     {
-        SceneManager.LoadScene("CaveLordRoom");
+        MultiSceneVariables.ArenaEnemyToSpawn = "CaveLord";
+        SceneManager.LoadScene("Arena");
     }
 
     public void BackToHub()

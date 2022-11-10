@@ -11,6 +11,7 @@ public class Entity : MonoBehaviour
     public Animator animator;
     public AbilityEffects abilityEffects;
     public Entity enemy;
+    public RectTransform statusPanel;
 
 
     private string actualAbilityVisualName;
@@ -76,6 +77,7 @@ public class Entity : MonoBehaviour
                 }
                 else
                 {
+                    Destroy(statusesList[i].statusUi.gameObject);
                     IncomingDamage = Mathf.Abs(overDamage);
                     statusesList.RemoveAt(i);
                 }

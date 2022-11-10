@@ -882,6 +882,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02520596252298a41adc84459a1d8203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  abilityEffects: {fileID: 0}
+  enemy: {fileID: 0}
+  statusPanel: {fileID: 0}
   playerDices: []
   dicesOffset: 2
   dicePrefab: {fileID: 2287633033357492247, guid: 2d4e50b7279db6946ac3a9ccca1d78da, type: 3}
@@ -894,7 +898,6 @@ MonoBehaviour:
   - 20kFive
   UI_Inventory: {fileID: 0}
   magicTypes: []
-  animator: {fileID: 0}
   playerThrowDirection: {x: 0, y: 0, z: 0}
   abilitiesList: []
 --- !u!114 &1815810241
@@ -909,8 +912,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ef903f339b2644183cde25829dfbb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hand: {fileID: 5018578275960176085}
   enemy: {fileID: 0}
+  hand: {fileID: 5018578275960176085}
 --- !u!1 &4660623881592854590
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,14 +18,16 @@ public class BloodDrain : PlayerAbility
 
     public override void Start()
     {
+        base.Start();
 
         costDictionary.Add(new Resource("Blood", 1), 1);
         costDictionary.Add(new Resource("Blood", 2), 1);
 
-        base.Start();
         effects.Add(new DealDamageEffect(damage));
         damageValue.text = damage.ToString();
         effects.Add(new HealEffect(heal));
         healValue.text = heal.ToString();
+
+        AssigneCost();
     }
 }

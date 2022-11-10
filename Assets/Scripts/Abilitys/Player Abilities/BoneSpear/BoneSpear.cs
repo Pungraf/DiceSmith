@@ -14,9 +14,12 @@ public class BoneSpear : PlayerAbility
     public override void Start()
     {
         base.Start();
+
         costDictionary.Add(new Resource("Bone", 1), 1);
+
         effects.Add(new DealDamageEffect(damage));
         damageValue.text = damage.ToString();
+
         AssigneCost();
     }
 }

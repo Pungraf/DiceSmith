@@ -16,6 +16,7 @@ public class ShieldStatus : Status, IShieldEffect
     public int UseShield(int damage)
     {
         _shieldValue -= damage;
+        statusUi.Counters.text = _shieldValue.ToString();
         return _shieldValue;
     }
 }

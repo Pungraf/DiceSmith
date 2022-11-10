@@ -21,12 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Smith.unity
     guid: 62b35cef54c673d4598ce4048d43b113
   - enabled: 1
-    path: Assets/Scenes/JailerRoom.unity
-    guid: 73ca10c232662f548a0c86fcd0e5bb61
-  - enabled: 1
-    path: Assets/Scenes/GuardianRoom.unity
-    guid: ee4329863ca6c4e4f926ede78a3d491b
-  - enabled: 1
-    path: Assets/Scenes/CaveLordRoom.unity
-    guid: c05472ae3bf30f549bed9fc7fc036c92
+    path: Assets/Scenes/Arena.unity
+    guid: d0e10efd30e64254894bb2d358f736b1
   m_configObjects: {}

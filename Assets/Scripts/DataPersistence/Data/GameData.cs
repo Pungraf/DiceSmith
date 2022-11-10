@@ -31,7 +31,8 @@ public class GameData
 
         unlockedAbilitiesList = new List<string> {  "BloodDrain",
                                                     "BoneSpear",
-                                                    "LunarStrike"};
+                                                    "LunarStrike",
+                                                    "BoneShield"};
     }
 }
 
