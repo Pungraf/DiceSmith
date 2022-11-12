@@ -29,5 +29,6 @@ public class BoneShieldEffect : Effect
         GameObject newBoneShieldUi = (GameObject)Instantiate(Resources.Load("StatusUi/BoneShieldUi"), ally.statusPanel, false);
         newBoneShield.statusUi = newBoneShieldUi.GetComponent<BoneShieldUi>();
         newBoneShield.statusUi.Counters.text = _shield.ToString();
+        newBoneShield.host = ally;
     }
 }

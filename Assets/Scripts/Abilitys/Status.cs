@@ -5,6 +5,8 @@ using UnityEngine;
 public class Status
 {
     public StatusUi statusUi;
+    public Entity host;
+    public TurnPhase triggerPhase;
 
     // Start is called before the first frame update
     void Start()
@@ -16,5 +18,9 @@ public class Status
     void Update()
     {
         
+    }
+
+    public virtual void Execute()
+    {
     }
 }

@@ -47,6 +47,7 @@ public class GameController : MonoBehaviour, IDataPersistence
     private bool onEncounter;
     private bool rolled;
     private bool resourcesAssigned;
+    private bool statusCheck;
     private bool lookupMode;
     private bool backToCameraOrigin;
     private bool freeCameraMovement;
@@ -56,9 +57,11 @@ public class GameController : MonoBehaviour, IDataPersistence
     private float cameraRotationSpeed = 5f;
     private float xAxisCameraMovement;
     private float zAxisCameraMovement;
+    private string entityTurn;
     
 
 
+    public TurnPhase turnPhase;
     public bool playerTurn;
     public string lootToText;
     public Player player;
@@ -167,7 +170,7 @@ public class GameController : MonoBehaviour, IDataPersistence
         }
 
         //Player input
-        if(onEncounter && playerTurn)
+        if(onEncounter && playerTurn && turnPhase == TurnPhase.Main)
         {
             if (Input.GetMouseButtonDown(0) && GetWorldPoint() != Vector3.zero && !dicesInMove && !dicesRolled)
             {
@@ -220,6 +223,16 @@ public class GameController : MonoBehaviour, IDataPersistence
     public void Surrender()
     {
         player.Health = 0;
+    }
+
+    public void NextPhase()
+    {
+        if(!playerTurn)
+        {
+            return;
+        }
+        turnPhase = turnPhase.Next();
+        UpdateUI();
     }
 
     //Finish current turn
@@ -410,6 +423,7 @@ public class GameController : MonoBehaviour, IDataPersistence
     {
         playerHealth.text = player.Health.ToString();
         enemyHealth.text = enemy.Health.ToString();
+        gamePhaseText.text = entityTurn + "\n" + turnPhase;
 
         foreach(Transform panel in resourcesMainPanel)
         {
@@ -445,29 +459,94 @@ public class GameController : MonoBehaviour, IDataPersistence
         onEncounter = true;
         playerTurn = true;
         InstantiatePlayerDices();
+
+        turnPhase = TurnPhase.Upkeep;
         while (onEncounter)
         {
+            statusCheck = false;
             resourcesAssigned = false;
+            statusCheck = false;
             rolled = false;
             rerolls = 3;
 
-            gamePhaseText.text = "Player Turn";
+            entityTurn = "Player Turn";
+            //Player Turn
+            turnPhase = TurnPhase.Upkeep;
+            UpdateUI();
             while (playerTurn && onEncounter)
             {
-                
+                //Player Upkeep phase
+                while(turnPhase == TurnPhase.Upkeep)
+                {
+                    if(!statusCheck)
+                    {
+                        //Execute all player effects triggered on upkeep
+                        foreach (Status status in player.statusesList)
+                        {
+                            if(status.triggerPhase == TurnPhase.Upkeep)
+                            {
+                                status.Execute();
+                            }
+                        }
+                        statusCheck = true;
+                    }
+                    yield return null;
+                }
+                //Player Main phase
+                while (turnPhase == TurnPhase.Main)
+                {
+                    yield return null;
+                }
+
+                if(turnPhase == TurnPhase.End)
+                {
+                    FinishTurn();
+                }
+
                 yield return null;
             }
             resourcesAssigned = false;
             rolled = false;
+            statusCheck = false;
             rerolls = 3;
 
-            gamePhaseText.text = "Enemy Turn";
+            entityTurn = "Enemy Turn";
+            //Enemy Turn
+            turnPhase = TurnPhase.Upkeep;
+            UpdateUI();
             while (!playerTurn && onEncounter)
             {
-                enemy.DealDamage();
-                playerTurn = true;
-                yield return new WaitForSeconds(2f);
-                yield return null;
+                //Enemy Upkeep phase
+                while (turnPhase == TurnPhase.Upkeep)
+                {
+                    if (!statusCheck)
+                    {
+                        //Execute all enemy effects triggered on upkeep
+                        foreach (Status status in enemy.statusesList)
+                        {
+                            if (status.triggerPhase == TurnPhase.Upkeep)
+                            {
+                                status.Execute();
+                            }
+                        }
+                        statusCheck = true;
+                    }
+                    yield return new WaitForSeconds(2f);
+                    turnPhase = turnPhase.Next(); ;
+                    UpdateUI();
+                    yield return null;
+                }
+                //Enemy Main phase
+                while (turnPhase == TurnPhase.Main)
+                {
+                    yield return new WaitForSeconds(2f);
+                    enemy.DealDamage();
+                    turnPhase = turnPhase.Next();
+                    UpdateUI();
+                    playerTurn = true;
+                    yield return new WaitForSeconds(2f);
+                    yield return null;
+                }
             }
             yield return null;
         }
