@@ -9,7 +9,7 @@ public class Enemy : Entity
     private List<Item> dropPool = new List<Item>();
     private List<Item> loot = new List<Item>();
 
-    public EnemyAbility ability;
+    public List<EnemyAbility> abilities;
 
     private void Awake()
     {
@@ -32,8 +32,12 @@ public class Enemy : Entity
         dropPool.Add(new Item { itemType = Item.ItemType.Skull, amount = 1, isStackable = true });
 
         GenerateDrop();
+        statusPanel = GameObject.Find("EnemyStatusPanel").GetComponent<RectTransform>();
 
-        ability.Start();
+        foreach(EnemyAbility ability in abilities)
+        {
+            ability.Start();
+        }
     }
 
     // Update is called once per frame
@@ -55,7 +59,8 @@ public class Enemy : Entity
 
     public void DealDamage()
     {
-        GameController.Instance.ExecuteAbility(ability, this, enemy, this);
+        int index = Random.Range(0, abilities.Count);
+        GameController.Instance.ExecuteAbility(abilities[index], this, enemy, this);
     }
 
     public void AssigneLoot()

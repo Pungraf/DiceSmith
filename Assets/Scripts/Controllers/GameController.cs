@@ -146,7 +146,9 @@ public class GameController : MonoBehaviour, IDataPersistence
     // Update is called once per frame
     void Update()
     {
-        if(lookupMode)
+        UpdateUI();
+
+        if (lookupMode)
         {
             if (eyeCamera.transform.position == cameraTargetLocation)
             {
@@ -227,12 +229,11 @@ public class GameController : MonoBehaviour, IDataPersistence
 
     public void NextPhase()
     {
-        if(!playerTurn)
+        if(!playerTurn || (playerTurn && turnPhase == TurnPhase.Main && !dicesRolled))
         {
             return;
         }
         turnPhase = turnPhase.Next();
-        UpdateUI();
     }
 
     //Finish current turn
@@ -393,7 +394,7 @@ public class GameController : MonoBehaviour, IDataPersistence
             {
                 if(value < token.Value)
                 {
-                    Debug.Log("Not enough resource of selected type");
+                    Debug.Log("Not enough resource of selected type: " + token.Value + " requaired, " + value + "in stock.");
                     return;
                 }
                 else
@@ -415,7 +416,6 @@ public class GameController : MonoBehaviour, IDataPersistence
         {
             effect.Execute(abilityEnemy, abilityAlly);
         }
-        UpdateUI();
     }
 
     //Refresh values in UI
@@ -472,11 +472,10 @@ public class GameController : MonoBehaviour, IDataPersistence
             entityTurn = "Player Turn";
             //Player Turn
             turnPhase = TurnPhase.Upkeep;
-            UpdateUI();
             while (playerTurn && onEncounter)
             {
                 //Player Upkeep phase
-                while(turnPhase == TurnPhase.Upkeep)
+                while(turnPhase == TurnPhase.Upkeep && onEncounter)
                 {
                     if(!statusCheck)
                     {
@@ -493,7 +492,7 @@ public class GameController : MonoBehaviour, IDataPersistence
                     yield return null;
                 }
                 //Player Main phase
-                while (turnPhase == TurnPhase.Main)
+                while (turnPhase == TurnPhase.Main && onEncounter)
                 {
                     yield return null;
                 }
@@ -513,11 +512,10 @@ public class GameController : MonoBehaviour, IDataPersistence
             entityTurn = "Enemy Turn";
             //Enemy Turn
             turnPhase = TurnPhase.Upkeep;
-            UpdateUI();
             while (!playerTurn && onEncounter)
             {
                 //Enemy Upkeep phase
-                while (turnPhase == TurnPhase.Upkeep)
+                while (turnPhase == TurnPhase.Upkeep && onEncounter)
                 {
                     if (!statusCheck)
                     {
@@ -533,16 +531,14 @@ public class GameController : MonoBehaviour, IDataPersistence
                     }
                     yield return new WaitForSeconds(2f);
                     turnPhase = turnPhase.Next(); ;
-                    UpdateUI();
                     yield return null;
                 }
                 //Enemy Main phase
-                while (turnPhase == TurnPhase.Main)
+                while (turnPhase == TurnPhase.Main && onEncounter)
                 {
                     yield return new WaitForSeconds(2f);
                     enemy.DealDamage();
                     turnPhase = turnPhase.Next();
-                    UpdateUI();
                     playerTurn = true;
                     yield return new WaitForSeconds(2f);
                     yield return null;

@@ -135,7 +135,9 @@ MonoBehaviour:
   animator: {fileID: 0}
   abilityEffects: {fileID: 0}
   enemy: {fileID: 0}
-  ability: {fileID: -1122046289749149608, guid: b2321a79905ed644390822fe414a076b, type: 3}
+  statusPanel: {fileID: 0}
+  abilities:
+  - {fileID: -1122046289749149608, guid: b2321a79905ed644390822fe414a076b, type: 3}
 --- !u!114 &1897134701045599050
 MonoBehaviour:
   m_ObjectHideFlags: 0
